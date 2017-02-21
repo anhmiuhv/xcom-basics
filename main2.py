@@ -37,11 +37,26 @@ def main():
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
+    block = pygame.Surface((60,60))
+    block = papixel.convert()
+    block.fill((0, 0, 255))
+    blank = pygame.Surface((60,60))
+    blank = papixel.convert()
+    blank.fill((255, 255, 255))
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
     for i in range(0,board1.width):
         for j in range(0,board1.height):
             unit = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
-            unit.set_image(papixel)
+            if (i==5)&(j==7):
+                unit.set_image(papixel)
+            elif (i == 4):
+                unit.set_image(block)
+            elif (i == 7):
+                unit.set_image(block)
+            elif (j == 4):
+                unit.set_image(block)
+            else:
+                unit.set_image(blank)
             board1.tiles[i][j].unit = unit
 
     renderer = Renderer.Renderer(board1,screen)
