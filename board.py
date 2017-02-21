@@ -14,7 +14,7 @@ class Tile:
         self.coverW = coverW
         self.unit = unit
     
-        
+
 
 # xy coordinates start from the top left of the window
 class Board:
