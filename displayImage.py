@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 import random, os.path
 
 #import basic pygame modules
@@ -28,6 +27,11 @@ def load_images(*files):
         imgs.append(load_image(file))
     return imgs
 
+class Node:
+    def __init__(self, image,x,y):
+        self.image = image
+        self.x = x
+        self.y = y
 
 def main():
     """this function is called when the program starts.
@@ -37,7 +41,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((600, 600))
     pygame.display.set_caption('XCom - the Unknown Noob')
-    pygame.mouse.set_visible(0)
+    pygame.mouse.set_visible(1)
 
     title = pygame.Surface((60,60))
     title.fill((50,0,0))
@@ -50,9 +54,10 @@ def main():
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
     
+    node = Node(papixel,500,500)
 
     #add character to background
-    background.blit(papixel,(500,500))
+    background.blit(node.image,(node.x,node.y))
 
 
     #test tile
@@ -69,6 +74,8 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
                     break
+            if pygame.mouse.get_pressed()[0] and node.image.get_rect().move(node.x,node.y).collidepoint(pygame.mouse.get_pos()):
+                print ("You have opened a chest!")
             pygame.display.flip()
     finally:
         pygame.quit()
