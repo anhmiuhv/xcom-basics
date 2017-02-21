@@ -2,6 +2,7 @@
 
 import random, os.path
 import board
+import copy
 import helper
 from Node import Node
 import Renderer
@@ -36,10 +37,10 @@ def main():
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
-
+    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
     for i in range(0,board1.width):
         for j in range(0,board1.height):
-            unit = soldier.Soldier((i,j))
+            unit = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
             unit.set_image(papixel)
             board1.tiles[i][j].unit = unit
 
@@ -54,7 +55,7 @@ def main():
                     break
             if pygame.mouse.get_pressed()[0]:
                 print ("You have opened a chest!")
-                renderer.render()
+                renderer.render(board1)
             pygame.display.flip()
     finally:
         pygame.quit()

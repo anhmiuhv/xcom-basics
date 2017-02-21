@@ -39,16 +39,14 @@ class Renderer():
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
 
-    def render(self):
+    def render(self, board):
         dummy = pygame.Surface(self.screen.get_size())
         dummy = dummy.convert()
         dummy.fill((255,255,255))
         papixel = pygame.Surface((60,60))
         papixel = papixel.convert()
         papixel.fill((255, 0, 0))
-        papixel2 = pygame.Surface((60,60))
-        papixel2 = papixel.convert()
-        papixel2.fill((0, 255, 0))
+        self.board = board
         for j in range(0,self.board.height):
             for i in range(0,self.board.width):
                 if (self.board.tiles[i][j].unit != None):
