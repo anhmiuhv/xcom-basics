@@ -1,3 +1,7 @@
+def createBoard():
+    return Board()
+    
+
 # Tile's attributes: whether they are passable, their xy coordinates (as a tuple)
 # the cover values of 4 sides, and the unit standing on the tile
 class Tile:
@@ -9,6 +13,8 @@ class Tile:
         self.coverS = coverS
         self.coverW = coverW
         self.unit = unit
+    
+        
 
 # xy coordinates start from the top left of the window
 class Board:
@@ -52,7 +58,6 @@ class Board:
                 return max(target.coverE, target.coverN)
             else:
                 return target.coverE
-
 
 
 
