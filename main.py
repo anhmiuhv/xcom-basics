@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import random, os.path
+import copy
 import board
 import helper
 from Node import Node
@@ -30,9 +31,10 @@ def main():
     tiles = []
     papixel = pygame.Surface((60,60))
     papixel.fill((255, 0, 0))
+    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
     for i in range(0,6):
         for j in range(0,6):
-            unit = soldier.Soldier((5,5))
+            unit = soldier.Soldier("Julian", copy.copy(wep_assault), (5,5))
             unit.set_image(papixel)
             tile = board.Tile(coords=(i,j),unit = unit)
             tiles.append(tile)
