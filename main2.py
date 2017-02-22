@@ -37,9 +37,13 @@ def main():
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
-    block = pygame.Surface((60,60))
-    block = papixel.convert()
-    block.fill((0, 0, 255))
+    wall = helper.load_image('wall.png').convert()
+    transColor = wall.get_at((0,0))
+    wall.set_colorkey(transColor)
+    ns = helper.load_image('ns.png').convert()
+    transColor = ns.get_at((0,0))
+    ns.set_colorkey(transColor)
+   
     blank = pygame.Surface((60,60))
     blank = papixel.convert()
     blank.fill((255, 255, 255))
@@ -49,12 +53,14 @@ def main():
             unit = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
             if (i==5)&(j==7):
                 unit.set_image(papixel)
+            elif (i==1)&(j==2):
+                unit.set_image(ns)
             elif (i == 4):
-                unit.set_image(block)
+                unit.set_image(wall)
             elif (i == 7):
-                unit.set_image(block)
+                unit.set_image(wall)
             elif (j == 4):
-                unit.set_image(block)
+                unit.set_image(wall)
             else:
                 unit.set_image(blank)
             board1.tiles[i][j].unit = unit
