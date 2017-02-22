@@ -38,6 +38,7 @@ class Renderer():
         #Display The Background
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
+        self.render(self.board)
 
     def render(self, board):
         dummy = pygame.Surface(self.screen.get_size())

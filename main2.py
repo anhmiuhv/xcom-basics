@@ -6,6 +6,7 @@ import copy
 import helper
 from Node import Node
 import Renderer
+import Controller
 #import basic pygame modules
 import pygame
 import soldier
@@ -47,6 +48,8 @@ def main():
     blank = pygame.Surface((60,60))
     blank = papixel.convert()
     blank.fill((255, 255, 255))
+    pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
+    
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
     for i in range(0,board1.width):
         for j in range(0,board1.height):
@@ -66,6 +69,8 @@ def main():
             board1.tiles[i][j].unit = unit
 
     renderer = Renderer.Renderer(board1,screen)
+    controller = Controller.Controller()
+    count = 0
     try:
         while 1:
             event = pygame.event.wait()
@@ -76,7 +81,17 @@ def main():
                     break
             if pygame.mouse.get_pressed()[0]:
                 print ("You have opened a chest!")
-                renderer.render(board1)
+                if (count == 0):
+                    coord1 = pygame.mouse.get_pos()
+                    print(count)
+                    count = count + 1
+                    
+                else:
+                    print(count)
+                    coord2 = pygame.mouse.get_pos()
+                    board2 = controller.makemove(board1, coord1,coord2)
+                    renderer.render(board2)
+                    count = 0
             pygame.display.flip()
     finally:
         pygame.quit()
