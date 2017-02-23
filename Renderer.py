@@ -96,6 +96,25 @@ class Renderer():
         
         self.screen.blit(dummy, (0, 0))
         self.background = dummy
-        print("test")
+        
         pygame.display.flip()
     
+    def renderPossibleTiles(self,possibleTiles):
+        self.render(self.board)
+        print("possibleTile")
+        dummy = pygame.Surface(self.screen.get_size())
+        dummy = dummy.convert()
+        dummy.fill((255,255,255))
+        dummy.set_alpha(75)
+        
+        for tile in possibleTiles: 
+            cover = pygame.Surface((60,60))
+            cover = cover.convert()
+            cover.fill((0, 140, 255))
+            cover.set_alpha(75)
+            dummy.blit(cover, (tile.coords[0]*64,tile.coords[1]*64))
+            
+        self.background.blit(dummy, (0,0))
+        self.screen.blit(self.background, (0, 0))
+        pygame.display.flip()
+            

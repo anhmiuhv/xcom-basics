@@ -73,31 +73,36 @@ class Controller:
     # updates board, returns a message indicating outcome
     def performAction(self, board, srcTile, desTile, ID):
         msg = ""
-        if ID == 1 or ID == 2:
-            srcTile.unit.actionPoints -= ID
-            desTile.unit = srcTile.unit
-            srcTile.unit = None
-        if ID == 3:
-            srcTile.unit.actionPoints = 0
-            hitChance = srcTile.unit.aim
-            cover = board.coverValue(srcTile, desTile)
-            if (cover <= 0): # flanking gets a 40% bonus
-                hitChance += 40
-            else: # if not flanking then aiming chance reduced by cover
-                hitChance -= cover
-            # range modifiers; weapons do better at close range and worse faraway
-            hitChance += srcTile.unit.weapon.rangeMod[board.straightDistance(srcTile, desTile)]
-            # RNGESUS COMETH
-            if randint(0, 100) <= hitChance:
-                damage = randint(srcTile.unit.weapon.minDamage, srcTile.unit.weapon.maxDamage)
-                desTile.unit.health -= damage
-                srcTile.unit.weapon.ammo -= 1
-                msg = "Hit: " + str(hitChance) + "% chance, " + str(damage) + " damage dealt."
-            else:
-                msg = "Missed: " + str(hitChance) + "% chance."
-        if ID == 4:
-            srcTile.unit.actionPoints -= 1
-            srcTile.unit.weapon.ammo = srcTile.unit.weapon.magSize
-            msg = "Weapon reloaded."
+        if (srcTile != desTile): 
+            
+            if ID == 1 or ID == 2:
+                srcTile.unit.actionPoints -= ID
+                desTile.unit = srcTile.unit
+                srcTile.unit = None
+            if ID == 3:
+                srcTile.unit.actionPoints = 0
+                hitChance = srcTile.unit.aim
+                cover = board.coverValue(srcTile, desTile)
+                if (cover <= 0): # flanking gets a 40% bonus
+                    hitChance += 40
+                else: # if not flanking then aiming chance reduced by cover
+                    hitChance -= cover
+                # range modifiers; weapons do better at close range and worse faraway
+                hitChance += srcTile.unit.weapon.rangeMod[int(board.straightDistance(srcTile, desTile))]
+                # RNGESUS COMETH
+                if random.randint(0, 100) <= hitChance:
+                    damage = random.randint(srcTile.unit.weapon.minDamage, srcTile.unit.weapon.maxDamage)
+                    desTile.unit.health -= damage
+                    srcTile.unit.weapon.ammo -= 1
+                    msg = "Hit: " + str(hitChance) + "% chance, " + str(damage) + " damage dealt."
+                else:
+                    msg = "Missed: " + str(hitChance) + "% chance."
+            if ID == 4:
+                srcTile.unit.actionPoints -= 1
+                srcTile.unit.weapon.ammo = srcTile.unit.weapon.magSize
+                msg = "Weapon reloaded."
+                
+        else: 
+            msg = "Same Tile wrong click you noob!"
         return msg
 

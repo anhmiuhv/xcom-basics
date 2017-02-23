@@ -1,4 +1,5 @@
 import math
+import heapq
 
 SQRT2 = math.sqrt(2)
 
@@ -7,14 +8,14 @@ class PQ:
     def __init__(self):
         self.list = []
 
-        def empty(self):
-            return len(self.list) == 0
+    def empty(self):
+        return len(self.list) == 0
 
-        def put(self, item, priority):
-            heapq.heappush(self.list, (priority, item))
+    def put(self, item, priority):
+        heapq.heappush(self.list, (priority, item))
 
-        def get(self):
-            return heapq.heappop(self.list)[1]
+    def get(self):
+        return heapq.heappop(self.list)[1]
 
 def createBoard():
     return Board()
@@ -97,7 +98,7 @@ class Board:
                     nlist.append(t)
             if (not leftEdge) and (not topEdge):
                 t = self.tiles[x-1][y-1]
-                if t.passable and t.unit != None and (tile.coverW <= 50 and tile.coverN <= 50) and (t.coverE <= 50 and t.coverS <= 50)):
+                if t.passable and t.unit != None and (tile.coverW <= 50 and tile.coverN <= 50) and (t.coverE <= 50 and t.coverS <= 50):
                     nlist.append(t)
             if (not topEdge):
                 t = self.tiles[x][y-1]
@@ -126,22 +127,23 @@ class Board:
 
     # returns the straight line distance between two tiles
     def straightDistance(self, tile1, tile2):
-        return sqrt(abs(tile1.coords[0] - tile2.coords[1])**2 + abs(tile1.coords[1] - tile2.coords[2])**2)
+        return math.sqrt(abs(tile1.coords[0] - tile2.coords[0])**2 + abs(tile1.coords[1] - tile2.coords[1])**2)
 
     # returns all tiles within a movement distance
     # (basically A*, but with a goal distance instead of goal tile)
     def moveDistance(self, tile, distance):
         opqueue = PQ()
-        opqueue.put(tile1, 0)
+        opqueue.put(tile, 0)
         cameFrom = {}
         cost_so_far = {}
-        cameFrom[tile1] = None
-        cost_so_far[tile1] = 0
+        cameFrom[tile] = None
+        cost_so_far[tile] = 0
 
         while not opqueue.empty():
             current = opqueue.get()
             self.fillNeighbors(current)
-
+            print(len(current.neighbors))
+            print("st else")
             for n in current.neighbors:
                 if (n.coords[0] == current.coords[0]) or (n.coords[1] == current.coords[1]):
                     cost = 1.0

@@ -121,6 +121,8 @@ def main():
                     if event.key == pygame.K_ESCAPE or event.unicode == '4':
                         print("reload")
                         ID = 4
+                    possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                    renderer.renderPossibleTiles(possibleTiles)
             if (srcTile != None)&(desTile != None)&(ID != None):
                 print(controller.performAction(board1, srcTile, desTile, ID))
                 srcTile = None
