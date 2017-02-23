@@ -10,12 +10,12 @@ class Controller:
     # probably obsolete after more stuff gets added
     def makemove(self, board,mouse1, mouse2):
         coord1 = []
-        coord1.append(int(math.floor(mouse1[0]/60)))
-        coord1.append(int(math.floor(mouse1[1]/60)))
+        coord1.append(int(math.floor(mouse1[0]/64)))
+        coord1.append(int(math.floor(mouse1[1]/64)))
 
 
-        coord1.append(int(math.floor(mouse2[0])/60))
-        coord1.append(int(math.floor(mouse2[1])/60))
+        coord1.append(int(math.floor(mouse2[0])/64))
+        coord1.append(int(math.floor(mouse2[1])/64))
 
         if (board.tiles[coord1[0]][coord1[1]].unit != None)&(board.tiles[coord1[2]][coord1[3]].unit != None):
 
@@ -27,8 +27,8 @@ class Controller:
 
     def getTile(self, board, mouse):
         coord1 = []
-        coord1.append(int(math.floor(mouse[0]/60)))
-        coord1.append(int(math.floor(mouse[1]/60)))
+        coord1.append(int(math.floor(mouse[0]/64)))
+        coord1.append(int(math.floor(mouse[1]/64)))
         return board.tiles[coord1[0]][coord1[1]]
 
     # id = 1: move (1 action)
