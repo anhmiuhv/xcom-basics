@@ -28,7 +28,7 @@ def main():
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
     board1 = board.Board(10,15)
-    screen = pygame.display.set_mode((60*board1.width+20, 60*board1.height+20))
+    screen = pygame.display.set_mode((64*board1.width+20, 64*board1.height+20))
 
     #tiles = {}
     # papixel = pygame.Surface((60,60))
@@ -48,7 +48,7 @@ def main():
     blank = pygame.Surface((60,60))
     blank = papixel.convert()
     blank.fill((255, 255, 255))
-    pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
+    #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
     
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
     for i in range(0,board1.width):
@@ -67,7 +67,16 @@ def main():
             else:
                 unit.set_image(blank)
             board1.tiles[i][j].unit = unit
-
+            
+            if (i==3)&(j==6):
+                board1.tiles[i][j].coverN = 1
+            if (i==3)&(j==6):
+                board1.tiles[i][j].coverW = 1
+            if (i==2)&(j==6):
+                board1.tiles[i][j].coverS = 1
+            if (i==11)&(j==7):
+                board1.tiles[i][j].coverE = 1  
+                          
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0

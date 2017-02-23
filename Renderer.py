@@ -44,16 +44,46 @@ class Renderer():
         dummy = pygame.Surface(self.screen.get_size())
         dummy = dummy.convert()
         dummy.fill((255,255,255))
-        papixel = pygame.Surface((60,60))
+        papixel = pygame.Surface((64,64))
         papixel = papixel.convert()
         papixel.fill((255, 0, 0))
+        
+        #blank = pygame.Surface((60,60))
+        #blank = papixel.convert()
+        #blank.fill((255, 255, 255))
+        #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
         self.board = board
         for j in range(0,self.board.height):
             for i in range(0,self.board.width):
+                blank = pygame.Surface((64,64))
+                blank = papixel.convert()
+                blank.fill((255, 255, 255))
+                #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
+                
+                if (self.board.tiles[i][j].coverN == 1):
+                    pygame.draw.line(blank, (50,140,200), (0,0), (60,0), 4)
+                    
+                if (self.board.tiles[i][j].coverS == 1):
+                    pygame.draw.line(blank, (50,140,200), (0,62), (60,62), 4)
+                    
+                if (self.board.tiles[i][j].coverW == 1):
+                    pygame.draw.line(blank, (50,140,200), (0,0), (0,62), 4)
+                    
+                if (self.board.tiles[i][j].coverE == 1):
+                    pygame.draw.line(blank, (50,140,200), (62,0), (62,60), 4)
+                    
+                dummy.blit(blank, (i*64,j*64))
+                    
+        #self.coverN = coverN
+        #self.coverE = coverE
+        #self.coverS = coverS
+        #self.coverW = coverW
+                
                 if (self.board.tiles[i][j].unit != None):
-                    dummy.blit(self.board.tiles[i][j].unit.image, (i*60,j*60))
+                    dummy.blit(self.board.tiles[i][j].unit.image, (i*64+2,j*64+2))
+                    #test = 1
                 else: 
-                    dummy.blit(papixel, (i*60,j*60))
+                    dummy.blit(papixel, (i*64+2,j*64+2))
         #Display The Background
         
         self.screen.blit(dummy, (0, 0))
