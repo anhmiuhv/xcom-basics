@@ -76,6 +76,7 @@ class Controller:
         if ID == 1 or ID == 2:
             srcTile.unit.actionPoints -= ID
             desTile.unit = srcTile.unit
+            srcTile.unit = None
         if ID == 3:
             srcTile.unit.actionPoints = 0
             hitChance = srcTile.unit.aim

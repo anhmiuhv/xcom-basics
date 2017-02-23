@@ -28,7 +28,7 @@ def main():
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
     board1 = board.Board(10,15)
-    screen = pygame.display.set_mode((64*board1.width+20, 64*board1.height+20))
+    screen = pygame.display.set_mode((64*board1.width+20+64*2, 64*board1.height+20))
 
     #tiles = {}
     # papixel = pygame.Surface((60,60))
@@ -76,6 +76,11 @@ def main():
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0
+    
+    srcTile = None
+    desTile = None
+    ID = None
+    
     try:
         while 1:
             event = pygame.event.wait()
@@ -87,16 +92,42 @@ def main():
             if pygame.mouse.get_pressed()[0]:
                 print ("You have opened a chest!")
                 if (count == 0):
-                    coord1 = pygame.mouse.get_pos()
                     print(count)
-                    count = count + 1
+                    coord1 = pygame.mouse.get_pos()
+                    srcTile = controller.getTile(board1, coord1)
+                    if (srcTile.unit != None):
+                        count = count + 1
+                    
                     
                 else:
                     print(count)
                     coord2 = pygame.mouse.get_pos()
-                    board2 = controller.makemove(board1, coord1,coord2)
-                    renderer.render(board2)
+                    desTile = controller.getTile(board1, coord2)
+                    #board2 = controller.makemove(board1, coord1,coord2)
+                    
                     count = 0
+                coord = pygame.mouse.get_pos()
+            if event.type == pygame.KEYDOWN:
+                if (count == 1):
+                    if event.key == pygame.K_ESCAPE or event.unicode == '1':
+                        print("move")
+                        ID = 1
+                    if event.key == pygame.K_ESCAPE or event.unicode == '2':
+                        print("dash")
+                        ID = 2
+                    if event.key == pygame.K_ESCAPE or event.unicode == '3':
+                        print("shoot")
+                        ID = 3
+                    if event.key == pygame.K_ESCAPE or event.unicode == '4':
+                        print("reload")
+                        ID = 4
+            if (srcTile != None)&(desTile != None)&(ID != None):
+                print(controller.performAction(board1, srcTile, desTile, ID))
+                srcTile = None
+                desTile = None
+                ID = None
+                renderer.render(board1)
+                
             pygame.display.flip()
     finally:
         pygame.quit()

@@ -60,7 +60,7 @@ class Renderer():
             for i in range(0,self.board.width):
                 blank = pygame.Surface((64,64))
                 blank = blank.convert()
-                blank.fill((255, 255, 255))
+                blank.fill((255, 255, 150))
                 #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
                 
                 if (self.board.tiles[i][j].coverN == 1):
@@ -91,6 +91,7 @@ class Renderer():
                     
                 dummy.blit(blank, (i*64,j*64))
 
+        
         #Display The Background
         
         self.screen.blit(dummy, (0, 0))
