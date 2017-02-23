@@ -93,35 +93,35 @@ class Board:
             bottomEdge = y == self.height - 1
             if (not leftEdge):
                 t = self.tiles[x-1][y]
-                if t.passable and tile.coverW <= 50:
+                if t.passable and t.unit != None and tile.coverW <= 50:
                     nlist.append(t)
             if (not leftEdge) and (not topEdge):
                 t = self.tiles[x-1][y-1]
-                if t.passable and (tile.coverW <= 50 or tile.coverN <= 50) and (t.coverE <= 50 or t.coverS <= 50):
+                if t.passable and t.unit != None and ((tile.coverW <= 50 or tile.coverN <= 50) and (t.coverE <= 50 or t.coverS <= 50):
                     nlist.append(t)
             if (not topEdge):
                 t = self.tiles[x][y-1]
-                if t.passable and tile.coverN <= 50:
+                if t.passable and t.unit != None and (tile.coverN <= 50:
                     nlist.append(t)
             if (not topEdge) and (not rightEdge):
                 t = self.tiles[x+1][y-1]
-                if t.passable and (tile.coverN <= 50 or tile.coverE <= 50) and (t.coverS <= 50 or t.coverW <= 50):
+                if t.passable and t.unit != None and ((tile.coverN <= 50 or tile.coverE <= 50) and (t.coverS <= 50 or t.coverW <= 50):
                     nlist.append(t)
             if (not rightEdge):
                 t = self.tiles[x+1][y]
-                if t.passable and tile.coverE <= 50:
+                if t.passable and t.unit != None and (tile.coverE <= 50:
                     nlist.append(t)
             if (not rightEdge) and (not bottomEdge):
                 t = self.tiles[x+1][y+1]
-                if t.passable and (tile.coverE <= 50 or tile.coverS <= 50) and (t.coverW <= 50 or t.coverN <= 50):
+                if t.passable and t.unit != None and ((tile.coverE <= 50 or tile.coverS <= 50) and (t.coverW <= 50 or t.coverN <= 50):
                     nlist.append(t)
             if (not bottomEdge):
                 t = self.tiles[x][y+1]
-                if t.passable and tile.coverS <= 50:
+                if t.passable and t.unit != None and (tile.coverS <= 50:
                     nlist.append(t)
             if (not bottomEdge) and (not leftEdge):
                 t = self.tiles[x-1][y+1]
-                if t.passable and (tile.coverS <= 50 or tile.coverW <= 50) and (t.coverN <= 50 or t.coverE <= 50):
+                if t.passable and t.unit != None and (tile.coverS <= 50 or tile.coverW <= 50) and (t.coverN <= 50 or t.coverE <= 50):
                     nlist.append(t)
 
     # returns the straight line distance between two tiles
