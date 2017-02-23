@@ -38,9 +38,7 @@ def main():
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
-    wall = helper.load_image('wall.png').convert()
-    transColor = wall.get_at((0,0))
-    wall.set_colorkey(transColor)
+    
     ns = helper.load_image('ns.png').convert()
     transColor = ns.get_at((0,0))
     ns.set_colorkey(transColor)
@@ -56,17 +54,12 @@ def main():
             unit = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
             if (i==5)&(j==7):
                 unit.set_image(papixel)
+                board1.tiles[i][j].unit = unit
             elif (i==1)&(j==2):
                 unit.set_image(ns)
-            elif (i == 4):
-                unit.set_image(wall)
-            elif (i == 7):
-                unit.set_image(wall)
-            elif (j == 4):
-                unit.set_image(wall)
-            else:
-                unit.set_image(blank)
-            board1.tiles[i][j].unit = unit
+                board1.tiles[i][j].unit = unit
+            
+            
             
             if (i==3)&(j==6):
                 board1.tiles[i][j].coverN = 1
@@ -76,7 +69,10 @@ def main():
                 board1.tiles[i][j].coverS = 1
             if (i==11)&(j==7):
                 board1.tiles[i][j].coverE = 1  
-                          
+            
+            
+            if (j == 4):
+                board1.tiles[i][j].passable = False
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0

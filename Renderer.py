@@ -44,10 +44,13 @@ class Renderer():
         dummy = pygame.Surface(self.screen.get_size())
         dummy = dummy.convert()
         dummy.fill((255,255,255))
-        papixel = pygame.Surface((64,64))
+        papixel = pygame.Surface((60,60))
         papixel = papixel.convert()
-        papixel.fill((255, 0, 0))
+        papixel.fill((255, 255, 255))
         
+        wall = helper.load_image('wall.png').convert()
+        transColor = wall.get_at((0,0))
+        wall.set_colorkey(transColor)
         #blank = pygame.Surface((60,60))
         #blank = papixel.convert()
         #blank.fill((255, 255, 255))
@@ -56,7 +59,7 @@ class Renderer():
         for j in range(0,self.board.height):
             for i in range(0,self.board.width):
                 blank = pygame.Surface((64,64))
-                blank = papixel.convert()
+                blank = blank.convert()
                 blank.fill((255, 255, 255))
                 #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
                 
@@ -72,7 +75,6 @@ class Renderer():
                 if (self.board.tiles[i][j].coverE == 1):
                     pygame.draw.line(blank, (50,140,200), (62,0), (62,60), 4)
                     
-                dummy.blit(blank, (i*64,j*64))
                     
         #self.coverN = coverN
         #self.coverE = coverE
@@ -80,10 +82,15 @@ class Renderer():
         #self.coverW = coverW
                 
                 if (self.board.tiles[i][j].unit != None):
-                    dummy.blit(self.board.tiles[i][j].unit.image, (i*64+2,j*64+2))
+                    blank.blit(self.board.tiles[i][j].unit.image, (2,2))
                     #test = 1
-                else: 
-                    dummy.blit(papixel, (i*64+2,j*64+2))
+                elif(self.board.tiles[i][j].passable == False):
+                    blank.blit(wall, (2,2))
+                else:    
+                    blank.blit(papixel, (2,2))
+                    
+                dummy.blit(blank, (i*64,j*64))
+
         #Display The Background
         
         self.screen.blit(dummy, (0, 0))

@@ -17,11 +17,11 @@ class Controller:
         coord1.append(int(math.floor(mouse2[0])/64))
         coord1.append(int(math.floor(mouse2[1])/64))
 
-        if (board.tiles[coord1[0]][coord1[1]].unit != None)&(board.tiles[coord1[2]][coord1[3]].unit != None):
+        #if (board.tiles[coord1[0]][coord1[1]].unit != None)&(board.tiles[coord1[2]][coord1[3]].unit != None):
 
-            dummyUnit = copy.copy(board.tiles[coord1[0]][coord1[1]].unit)
-            board.tiles[coord1[0]][coord1[1]].unit = copy.copy(board.tiles[coord1[2]][coord1[3]].unit)
-            board.tiles[coord1[2]][coord1[3]].unit = dummyUnit
+        dummyUnit = copy.copy(board.tiles[coord1[0]][coord1[1]].unit)
+        board.tiles[coord1[0]][coord1[1]].unit = copy.copy(board.tiles[coord1[2]][coord1[3]].unit)
+        board.tiles[coord1[2]][coord1[3]].unit = dummyUnit
 
         return board
 
