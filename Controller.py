@@ -85,6 +85,10 @@ class Controller:
                 srcTile.unit.actionPoints -= ID
                 desTile.unit = srcTile.unit
                 srcTile.unit = None
+                if ID == 1:
+                    print("Move Successful")
+                else: 
+                    print("Dash Successful")
             if ID == 3:
                 srcTile.unit.actionPoints = 0
                 hitChance = srcTile.unit.aim

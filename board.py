@@ -151,7 +151,7 @@ class Board:
         while not opqueue.empty():
             current = opqueue.get()
             self.fillNeighbors(current)
-            print("cuuurent neighbors: " + str(len(current.neighbors)))
+            #print("cuuurent neighbors: " + str(len(current.neighbors)))
             #print("st else")
             for n in current.neighbors:
                 if (n.coords[0] == current.coords[0]) or (n.coords[1] == current.coords[1]):

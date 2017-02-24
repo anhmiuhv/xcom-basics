@@ -103,20 +103,22 @@ def main():
             if pygame.mouse.get_pressed()[0]:
                 if ((time.time() - x) > 0.5):
                     x = time.time()
-                    print ("You have opened a chest!")
+                    #print ("You have opened a chest!")
                     if (count == 0):
     
                         coord1 = pygame.mouse.get_pos()
                         srcTile = controller.getTile(board1, coord1)
-                        renderer.renderPossibleTiles([srcTile])
+                        
                         if (srcTile.unit != None):
                             count = count + 1
                             print("got it")
+                            renderer.renderPossibleTiles([srcTile])
                         else: 
                             count = 0
+                            print("You do not click on an unit nooob!")
     
                     elif(count == 2):
-                        print("second click")
+                        print("destination receive")
                         coord2 = pygame.mouse.get_pos()
                         desTile = controller.getTile(board1, coord2)
                         #board2 = controller.makemove(board1, coord1,coord2)
@@ -125,7 +127,7 @@ def main():
                     print("you pressed too fast")
                     #coord = pygame.mouse.get_pos()
             if event.type == pygame.KEYDOWN:
-                if (count == 1):
+                if (count == 1)or(count == 2):
                     if ((time.time() - y) > 0.5):
                         y = time.time()
                         if event.key == pygame.K_ESCAPE or event.unicode == '1':

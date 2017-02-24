@@ -101,7 +101,7 @@ class Renderer():
     
     def renderPossibleTiles(self,possibleTiles):
         self.render(self.board)
-        print("possibleTile")
+        #print("possibleTile")
         dummy = pygame.Surface(self.screen.get_size())
         dummy = dummy.convert()
         dummy.fill((255,255,255))
