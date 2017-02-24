@@ -73,8 +73,13 @@ class Controller:
     # updates board, returns a message indicating outcome
     def performAction(self, board, srcTile, desTile, ID):
         msg = ""
-        if (srcTile.coords != desTile.coords): 
-            
+        possibleTiles = self.possibleTiles(board, srcTile, ID)
+        action = False
+        for tile in possibleTiles:
+            if (tile.coords == desTile.coords):
+                action = True
+                
+        if action:
             if ID == 1 or ID == 2:
                 srcTile.unit.actionPoints -= ID
                 desTile.unit = srcTile.unit
@@ -103,6 +108,6 @@ class Controller:
                 msg = "Weapon reloaded."
                 
         else: 
-            msg = "Same Tile wrong click you noob!"
+            msg = "You click on the wrong tile you noob!"
         return msg
 

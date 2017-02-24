@@ -57,13 +57,16 @@ def main():
     y = 0
     for i in range(0,board1.width):
         for j in range(0,board1.height):
-            unit = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
+            
+            
             if (i==5)&(j==7):
-                unit.set_image(papixel)
-                board1.tiles[i][j].unit = unit
+                unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
+                unit1.set_image(papixel)
+                board1.tiles[i][j].unit = unit1
             elif (i==1)&(j==2):
-                unit.set_image(ns)
-                board1.tiles[i][j].unit = unit
+                unit2 = soldier.Soldier("Lalala", copy.copy(wep_assault), (i,j), side = 1)
+                unit2.set_image(ns)
+                board1.tiles[i][j].unit = unit2
 
 
 
@@ -77,7 +80,7 @@ def main():
                 board1.tiles[i][j].coverE = 1
 
 
-            if (j == 4):
+            if (j == 9):
                 board1.tiles[i][j].passable = False
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
@@ -156,9 +159,8 @@ def main():
                         print("you press too fast")
                     
             if (srcTile != None) and (desTile != None) and (ID != None):
-                print("action perform")
+                print("action perform")    
                 print(controller.performAction(board1, srcTile, desTile, ID))
-
                 srcTile = None
                 desTile = None
                 ID = None
