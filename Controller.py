@@ -103,8 +103,12 @@ class Controller:
                 if random.randint(0, 100) <= hitChance:
                     damage = random.randint(srcTile.unit.weapon.minDamage, srcTile.unit.weapon.maxDamage)
                     desTile.unit.health -= damage
+                    if (desTile.unit.health <= 0):
+                        desTile.unit = None
                     srcTile.unit.weapon.ammo -= 1
                     msg = "Hit: " + str(hitChance) + "% chance, " + str(damage) + " damage dealt."
+                    if desTile.unit == None:
+                        msg = msg + "  ... and your target die"
                 else:
                     msg = "Missed: " + str(hitChance) + "% chance."
             if ID == 4:

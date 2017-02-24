@@ -51,7 +51,7 @@ def main():
     blank.fill((255, 255, 255))
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
 
-    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
+    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,-2,-4,-6,-8,-10,-12,-14,-16,-18,-20,-25])
     
     
     # Initialize time for checking click
@@ -69,7 +69,10 @@ def main():
                 unit2 = soldier.Soldier("Lalala", copy.copy(wep_assault), (i,j), side = 1)
                 unit2.set_image(ns)
                 board1.tiles[i][j].unit = unit2
-
+            elif (i ==10)&(j==10):
+                unit1 = soldier.Soldier("Julian2", copy.copy(wep_assault), (i,j))
+                unit1.set_image(papixel)
+                board1.tiles[i][j].unit = unit1
 
 
             if (i==3)&(j==6):
