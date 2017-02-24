@@ -36,7 +36,16 @@ class Tile:
         self.unit = unit
         self.neighbors = []
 
-
+    def __lt__(self,a):
+        return True
+    
+    def __eq__(self,a):
+        if a== None:
+            return False
+        return self.coords == a.coords
+     
+    def __hash__(self):
+        return self.coords[0] * 1000 + self.coords[1]
 
 # xy coordinates start from the top left of the window
 class Board:
@@ -94,36 +103,37 @@ class Board:
             bottomEdge = y == self.height - 1
             if (not leftEdge):
                 t = self.tiles[x-1][y]
-                if t.passable and t.unit != None and tile.coverW <= 50:
+                if t.passable and t.unit == None and tile.coverW <= 50:
                     nlist.append(t)
             if (not leftEdge) and (not topEdge):
                 t = self.tiles[x-1][y-1]
-                if t.passable and t.unit != None and (tile.coverW <= 50 and tile.coverN <= 50) and (t.coverE <= 50 and t.coverS <= 50):
+                if t.passable and t.unit == None and (tile.coverW <= 50 and tile.coverN <= 50) and (t.coverE <= 50 and t.coverS <= 50):
                     nlist.append(t)
             if (not topEdge):
                 t = self.tiles[x][y-1]
-                if t.passable and t.unit != None and (tile.coverN <= 50):
+                if t.passable and t.unit == None and (tile.coverN <= 50):
                     nlist.append(t)
             if (not topEdge) and (not rightEdge):
                 t = self.tiles[x+1][y-1]
-                if t.passable and t.unit != None and ((tile.coverN <= 50 and tile.coverE <= 50) and (t.coverS <= 50 and t.coverW <= 50)):
+                if t.passable and t.unit == None and ((tile.coverN <= 50 and tile.coverE <= 50) and (t.coverS <= 50 and t.coverW <= 50)):
                     nlist.append(t)
             if (not rightEdge):
                 t = self.tiles[x+1][y]
-                if t.passable and t.unit != None and (tile.coverE <= 50):
+                if t.passable and t.unit == None and (tile.coverE <= 50):
                     nlist.append(t)
             if (not rightEdge) and (not bottomEdge):
                 t = self.tiles[x+1][y+1]
-                if t.passable and t.unit != None and ((tile.coverE <= 50 and tile.coverS <= 50) and (t.coverW <= 50 and t.coverN <= 50)):
+                if t.passable and t.unit == None and ((tile.coverE <= 50 and tile.coverS <= 50) and (t.coverW <= 50 and t.coverN <= 50)):
                     nlist.append(t)
             if (not bottomEdge):
                 t = self.tiles[x][y+1]
-                if t.passable and t.unit != None and (tile.coverS <= 50):
+                if t.passable and t.unit == None and (tile.coverS <= 50):
                     nlist.append(t)
             if (not bottomEdge) and (not leftEdge):
                 t = self.tiles[x-1][y+1]
-                if t.passable and t.unit != None and (tile.coverS <= 50 and tile.coverW <= 50) and (t.coverN <= 50 and t.coverE <= 50):
+                if t.passable and t.unit == None and (tile.coverS <= 50 and tile.coverW <= 50) and (t.coverN <= 50 and t.coverE <= 50):
                     nlist.append(t)
+            print("nlist printing: " + str(len(nlist)))
 
     # returns the straight line distance between two tiles
     def straightDistance(self, tile1, tile2):
@@ -142,8 +152,8 @@ class Board:
         while not opqueue.empty():
             current = opqueue.get()
             self.fillNeighbors(current)
-            print(len(current.neighbors))
-            print("st else")
+            print("cuuurent neighbors: " + str(len(current.neighbors)))
+            #print("st else")
             for n in current.neighbors:
                 if (n.coords[0] == current.coords[0]) or (n.coords[1] == current.coords[1]):
                     cost = 1.0

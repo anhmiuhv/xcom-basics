@@ -28,7 +28,7 @@ def main():
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
     board1 = board.Board(10,15)
-    screen = pygame.display.set_mode((64*board1.width+20+64*2, 64*board1.height+20))
+    screen = pygame.display.set_mode((64*board1.width+20, 64*board1.height+20))
 
     #tiles = {}
     # papixel = pygame.Surface((60,60))
@@ -92,20 +92,22 @@ def main():
             if pygame.mouse.get_pressed()[0]:
                 print ("You have opened a chest!")
                 if (count == 0):
-                    print(count)
+                    
                     coord1 = pygame.mouse.get_pos()
                     srcTile = controller.getTile(board1, coord1)
+                    renderer.renderPossibleTiles([srcTile])
                     if (srcTile.unit != None):
                         count = count + 1
+                        print("got it")
                     
                     
                 else:
-                    print(count)
+                    print("second click")
                     coord2 = pygame.mouse.get_pos()
                     desTile = controller.getTile(board1, coord2)
                     #board2 = controller.makemove(board1, coord1,coord2)
-                    
                     count = 0
+                    
                 coord = pygame.mouse.get_pos()
             if event.type == pygame.KEYDOWN:
                 if (count == 1):
@@ -123,8 +125,11 @@ def main():
                         ID = 4
                     possibleTiles = controller.possibleTiles(board1, srcTile, ID)
                     renderer.renderPossibleTiles(possibleTiles)
-            if (srcTile != None)&(desTile != None)&(ID != None):
+            
+            if (srcTile != None) and (desTile != None) and (ID != None):
+                print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
+                
                 srcTile = None
                 desTile = None
                 ID = None

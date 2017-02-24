@@ -73,7 +73,7 @@ class Controller:
     # updates board, returns a message indicating outcome
     def performAction(self, board, srcTile, desTile, ID):
         msg = ""
-        if (srcTile != desTile): 
+        if (srcTile.coords != desTile.coords): 
             
             if ID == 1 or ID == 2:
                 srcTile.unit.actionPoints -= ID
