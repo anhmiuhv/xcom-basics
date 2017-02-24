@@ -132,8 +132,8 @@ class Board:
             t = self.tiles[x-1][y+1]
             if t.passable and t.unit == None and (tile.coverS <= 50 and tile.coverW <= 50) and (t.coverN <= 50 and t.coverE <= 50):
                 nlist.append(t)
-        print("nlist printing: " + str(len(nlist)))
-
+        
+        
     # returns the straight line distance between two tiles
     def straightDistance(self, tile1, tile2):
         return math.sqrt(abs(tile1.coords[0] - tile2.coords[0])**2 + abs(tile1.coords[1] - tile2.coords[1])**2)
