@@ -11,6 +11,7 @@ import Controller
 import pygame
 import soldier
 from pygame.locals import *
+import time
 
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
@@ -49,6 +50,11 @@ def main():
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
 
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
+    
+    
+    # Initialize time for checking click
+    x = 0
+    y = 0
     for i in range(0,board1.width):
         for j in range(0,board1.height):
             unit = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
@@ -90,42 +96,65 @@ def main():
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
                     break
             if pygame.mouse.get_pressed()[0]:
-                print ("You have opened a chest!")
-                if (count == 0):
-
-                    coord1 = pygame.mouse.get_pos()
-                    srcTile = controller.getTile(board1, coord1)
-                    renderer.renderPossibleTiles([srcTile])
-                    if (srcTile.unit != None):
-                        count = count + 1
-                        print("got it")
-
-
+                if ((time.time() - x) > 0.5):
+                    x = time.time()
+                    print ("You have opened a chest!")
+                    if (count == 0):
+    
+                        coord1 = pygame.mouse.get_pos()
+                        srcTile = controller.getTile(board1, coord1)
+                        renderer.renderPossibleTiles([srcTile])
+                        if (srcTile.unit != None):
+                            count = count + 1
+                            print("got it")
+                        else: 
+                            count = 0
+    
+                    elif(count == 2):
+                        print("second click")
+                        coord2 = pygame.mouse.get_pos()
+                        desTile = controller.getTile(board1, coord2)
+                        #board2 = controller.makemove(board1, coord1,coord2)
+                        count = 0
                 else:
-                    print("second click")
-                    coord2 = pygame.mouse.get_pos()
-                    desTile = controller.getTile(board1, coord2)
-                    #board2 = controller.makemove(board1, coord1,coord2)
-                    count = 0
-
-                coord = pygame.mouse.get_pos()
+                    print("you pressed too fast")
+                    #coord = pygame.mouse.get_pos()
             if event.type == pygame.KEYDOWN:
                 if (count == 1):
-                    if event.key == pygame.K_ESCAPE or event.unicode == '1':
-                        print("move")
-                        ID = 1
-                    if event.key == pygame.K_ESCAPE or event.unicode == '2':
-                        print("dash")
-                        ID = 2
-                    if event.key == pygame.K_ESCAPE or event.unicode == '3':
-                        print("shoot")
-                        ID = 3
-                    if event.key == pygame.K_ESCAPE or event.unicode == '4':
-                        print("reload")
-                        ID = 4
-                    possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-                    renderer.renderPossibleTiles(possibleTiles)
-
+                    if ((time.time() - y) > 0.5):
+                        y = time.time()
+                        if event.key == pygame.K_ESCAPE or event.unicode == '1':
+                            print("move")
+                            ID = 1
+                            count = 2
+                            possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                            renderer.renderPossibleTiles(possibleTiles)
+                        if event.key == pygame.K_ESCAPE or event.unicode == '2':
+                            print("dash")
+                            ID = 2
+                            count = 2
+                            possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                            renderer.renderPossibleTiles(possibleTiles)
+                        if event.key == pygame.K_ESCAPE or event.unicode == '3':
+                            print("shoot")
+                            ID = 3
+                            count = 2
+                            possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                            renderer.renderPossibleTiles(possibleTiles)
+                        if event.key == pygame.K_ESCAPE or event.unicode == '4':
+                            print("reload")
+                            ID = 4
+                            desTile = board.Tile((100,100))
+                            print(controller.performAction(board1, srcTile, desTile, ID))
+                            desTile = None
+                            srcTile = None
+                            ID = None
+                            count = 0
+#                         possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+#                         renderer.renderPossibleTiles(possibleTiles)
+                    else:
+                        print("you press too fast")
+                    
             if (srcTile != None) and (desTile != None) and (ID != None):
                 print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
