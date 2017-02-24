@@ -38,16 +38,16 @@ def main():
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
-    
+
     ns = helper.load_image('ns.png').convert()
     transColor = ns.get_at((0,0))
     ns.set_colorkey(transColor)
-   
+
     blank = pygame.Surface((60,60))
     blank = papixel.convert()
     blank.fill((255, 255, 255))
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
-    
+
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0])
     for i in range(0,board1.width):
         for j in range(0,board1.height):
@@ -58,9 +58,9 @@ def main():
             elif (i==1)&(j==2):
                 unit.set_image(ns)
                 board1.tiles[i][j].unit = unit
-            
-            
-            
+
+
+
             if (i==3)&(j==6):
                 board1.tiles[i][j].coverN = 1
             if (i==3)&(j==6):
@@ -68,19 +68,19 @@ def main():
             if (i==2)&(j==6):
                 board1.tiles[i][j].coverS = 1
             if (i==11)&(j==7):
-                board1.tiles[i][j].coverE = 1  
-            
-            
+                board1.tiles[i][j].coverE = 1
+
+
             if (j == 4):
                 board1.tiles[i][j].passable = False
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0
-    
+
     srcTile = None
     desTile = None
     ID = None
-    
+
     try:
         while 1:
             event = pygame.event.wait()
@@ -92,22 +92,22 @@ def main():
             if pygame.mouse.get_pressed()[0]:
                 print ("You have opened a chest!")
                 if (count == 0):
-                    
+
                     coord1 = pygame.mouse.get_pos()
                     srcTile = controller.getTile(board1, coord1)
                     renderer.renderPossibleTiles([srcTile])
                     if (srcTile.unit != None):
                         count = count + 1
                         print("got it")
-                    
-                    
+
+
                 else:
                     print("second click")
                     coord2 = pygame.mouse.get_pos()
                     desTile = controller.getTile(board1, coord2)
                     #board2 = controller.makemove(board1, coord1,coord2)
                     count = 0
-                    
+
                 coord = pygame.mouse.get_pos()
             if event.type == pygame.KEYDOWN:
                 if (count == 1):
@@ -125,16 +125,16 @@ def main():
                         ID = 4
                     possibleTiles = controller.possibleTiles(board1, srcTile, ID)
                     renderer.renderPossibleTiles(possibleTiles)
-            
+
             if (srcTile != None) and (desTile != None) and (ID != None):
                 print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
-                
+
                 srcTile = None
                 desTile = None
                 ID = None
                 renderer.render(board1)
-                
+
             pygame.display.flip()
     finally:
         pygame.quit()
