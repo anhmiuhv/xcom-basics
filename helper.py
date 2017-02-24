@@ -16,3 +16,6 @@ def load_images(*files):
     for file in files:
         imgs.append(load_image(file))
     return imgs
+
+def getResolution():
+    return 40

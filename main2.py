@@ -28,8 +28,8 @@ def main():
     pygame.init()
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
-    board1 = board.Board(10,15)
-    screen = pygame.display.set_mode((64*board1.width+20, 64*board1.height+20))
+    board1 = board.Board(15,20)
+    screen = pygame.display.set_mode(((helper.getResolution()+4)*board1.width+10, (helper.getResolution()+4)*board1.height+10))
 
     #tiles = {}
     # papixel = pygame.Surface((60,60))
@@ -39,12 +39,14 @@ def main():
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
     papixel.set_colorkey(transColor)
-
+    papixel = pygame.transform.scale(papixel, (helper.getResolution(), helper.getResolution()))
+#picture = pygame.transform.scale(picture, (1280, 720))
     ns = helper.load_image('ns.png').convert()
     transColor = ns.get_at((0,0))
     ns.set_colorkey(transColor)
-
-    blank = pygame.Surface((60,60))
+    ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
+    
+    blank = pygame.Surface((helper.getResolution(),helper.getResolution()))
     blank = papixel.convert()
     blank.fill((255, 255, 255))
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)

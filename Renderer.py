@@ -44,7 +44,7 @@ class Renderer():
         dummy = pygame.Surface(self.screen.get_size())
         dummy = dummy.convert()
         dummy.fill((255,255,255))
-        papixel = pygame.Surface((60,60))
+        papixel = pygame.Surface((helper.getResolution(),helper.getResolution()))
         papixel = papixel.convert()
         papixel.fill((255, 255, 255))
         
@@ -58,22 +58,22 @@ class Renderer():
         self.board = board
         for j in range(0,self.board.height):
             for i in range(0,self.board.width):
-                blank = pygame.Surface((64,64))
+                blank = pygame.Surface((helper.getResolution()+4,helper.getResolution()+4))
                 blank = blank.convert()
                 blank.fill((255, 255, 150))
                 #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
-                
+                res = helper.getResolution()
                 if (self.board.tiles[i][j].coverN == 1):
-                    pygame.draw.line(blank, (50,140,200), (0,0), (60,0), 4)
+                    pygame.draw.line(blank, (50,140,200), (0,0), (res,0), 4)
                     
                 if (self.board.tiles[i][j].coverS == 1):
-                    pygame.draw.line(blank, (50,140,200), (0,62), (60,62), 4)
+                    pygame.draw.line(blank, (50,140,200), (0,res+2), (res,res+2), 4)
                     
                 if (self.board.tiles[i][j].coverW == 1):
-                    pygame.draw.line(blank, (50,140,200), (0,0), (0,62), 4)
+                    pygame.draw.line(blank, (50,140,200), (0,0), (0,res+2), 4)
                     
                 if (self.board.tiles[i][j].coverE == 1):
-                    pygame.draw.line(blank, (50,140,200), (62,0), (62,60), 4)
+                    pygame.draw.line(blank, (50,140,200), (res+2,0), (res+2,res), 4)
                     
                     
         #self.coverN = coverN
@@ -89,7 +89,7 @@ class Renderer():
                 else:    
                     blank.blit(papixel, (2,2))
                     
-                dummy.blit(blank, (i*64,j*64))
+                dummy.blit(blank, (i*(res+4),j*(res+4)))
 
         
         #Display The Background
@@ -106,13 +106,13 @@ class Renderer():
         dummy = dummy.convert()
         dummy.fill((255,255,255))
         dummy.set_alpha(75)
-        
+        res = helper.getResolution()
         for tile in possibleTiles: 
-            cover = pygame.Surface((60,60))
+            cover = pygame.Surface((res,res))
             cover = cover.convert()
             cover.fill((0, 140, 255))
             cover.set_alpha(75)
-            dummy.blit(cover, (tile.coords[0]*64,tile.coords[1]*64))
+            dummy.blit(cover, (tile.coords[0]*(res+4),tile.coords[1]*(res+4)))
             
         self.background.blit(dummy, (0,0))
         self.screen.blit(self.background, (0, 0))
