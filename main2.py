@@ -45,34 +45,40 @@ def main():
     transColor = ns.get_at((0,0))
     ns.set_colorkey(transColor)
     ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
-    
+
     blank = pygame.Surface((helper.getResolution(),helper.getResolution()))
     blank = papixel.convert()
     blank.fill((255, 255, 255))
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
+    soldiers = []
+    soldiers.append([])
+    soldiers.append([])
 
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,-2,-4,-6,-8,-10,-12,-14,-16,-18,-20,-25])
-    
-    
+
+
     # Initialize time for checking click
     x = 0
     y = 0
     for i in range(0,board1.width):
         for j in range(0,board1.height):
-            
-            
+
+
             if (i==5)&(j==7):
                 unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
                 unit1.set_image(papixel)
                 board1.tiles[i][j].unit = unit1
+                soldiers[0].append(unit1)
             elif (i==1)&(j==2):
                 unit2 = soldier.Soldier("Lalala", copy.copy(wep_assault), (i,j), side = 1)
                 unit2.set_image(ns)
                 board1.tiles[i][j].unit = unit2
+                soldiers[1].append(unit2)
             elif (i ==10)&(j==10):
                 unit1 = soldier.Soldier("Julian2", copy.copy(wep_assault), (i,j))
                 unit1.set_image(papixel)
                 board1.tiles[i][j].unit = unit1
+                soldiers[0].append(unit1)
 
 
             if (i==3)&(j==6):
@@ -95,6 +101,7 @@ def main():
     desTile = None
     ID = None
 
+    currentSide = 0
     try:
         while 1:
             event = pygame.event.wait()
@@ -108,28 +115,29 @@ def main():
                     x = time.time()
                     #print ("You have opened a chest!")
                     if (count == 0):
-    
+
                         coord1 = pygame.mouse.get_pos()
                         srcTile = controller.getTile(board1, coord1)
-                        
-                        if (srcTile.unit != None):
+
+                        if (srcTile.unit != None and srcTile.unit in soldiers[currentSide] and srcTile.unit.actionPoints > 0):
+                            print(str(srcTile.unit.actionPoints))
                             count = count + 1
                             print("got it")
                             renderer.renderPossibleTiles([srcTile])
-                        else: 
+                        else:
                             count = 0
                             print("You do not click on an unit nooob!")
-    
+
                     elif(count == 2):
                         print("destination receive")
                         coord2 = pygame.mouse.get_pos()
                         desTile = controller.getTile(board1, coord2)
-                        if desTile.unit != None:
-                            desTile = None
-                        else:
-                            count = 0
+                        #if desTile.unit != None:
+                        #    desTile = None
+                        #else:
+                        count = 0
                         #board2 = controller.makemove(board1, coord1,coord2)
-                        
+
                 else:
                     print("you pressed too fast")
                     #coord = pygame.mouse.get_pos()
@@ -164,18 +172,34 @@ def main():
                             srcTile = None
                             ID = None
                             count = 0
+                            renderer.render(board1)
 #                         possibleTiles = controller.possibleTiles(board1, srcTile, ID)
 #                         renderer.renderPossibleTiles(possibleTiles)
                     else:
                         print("you press too fast")
-                    
+
             if (srcTile != None) and (desTile != None) and (ID != None):
-                print("action perform")    
+                print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
                 srcTile = None
                 desTile = None
                 ID = None
                 renderer.render(board1)
+                switch = True
+                for u in soldiers[currentSide]:
+                    if u.actionPoints > 0 and u.health > 0:
+                        switch = False
+                if switch:
+                    if currentSide == 0:
+                        currentSide = 1
+                        print("Alien Activity")
+                    else:
+                        currentSide = 0
+                        print("XCOM's Turn")
+                    for u in soldiers[currentSide]:
+                        u.actionPoints = 2
+
+
 
             pygame.display.flip()
     finally:
