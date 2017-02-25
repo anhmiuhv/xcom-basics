@@ -100,7 +100,7 @@ class Controller:
                 # range modifiers; weapons do better at close range and worse faraway
                 dis = int(board.straightDistance(srcTile, desTile))
                 if dis >= len(srcTile.unit.weapon.rangeMod):
-                    dis = len(stcTile.unit.weapon.rangeMod)
+                    dis = len(stcTile.unit.weapon.rangeMod) - 1
                 hitChance += srcTile.unit.weapon.rangeMod[dis]
                 # RNGESUS COMETH
                 if random.randint(0, 100) <= hitChance:
