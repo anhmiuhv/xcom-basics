@@ -85,7 +85,7 @@ def main():
                 board1.tiles[i][j].coverE = 1
 
 
-            if (j == 9):
+            if (j == 9) and ((i!=5) and (i!=6) and (i!=12)):
                 board1.tiles[i][j].passable = False
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
