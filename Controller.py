@@ -98,7 +98,7 @@ class Controller:
                 else: # if not flanking then aiming chance reduced by cover
                     hitChance -= cover
                 # range modifiers; weapons do better at close range and worse faraway
-                dis = int(straightDistance(srcTile, desTile))
+                dis = int(board.straightDistance(srcTile, desTile))
                 if dis >= len(srcTile.unit.weapon.rangeMod):
                     dis = len(stcTile.unit.weapon.rangeMod)
                 hitChance += srcTile.unit.weapon.rangeMod[dis]
