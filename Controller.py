@@ -79,7 +79,7 @@ class Controller:
         for tile in possibleTiles:
             if (tile.coords == desTile.coords):
                 action = True
-                
+
         if action:
             if ID == 1 or ID == 2:
                 srcTile.unit.actionPoints -= ID
@@ -87,7 +87,7 @@ class Controller:
                 srcTile.unit = None
                 if ID == 1:
                     print("Move Successful")
-                else: 
+                else:
                     print("Dash Successful")
             if ID == 3:
                 srcTile.unit.actionPoints = 0
@@ -98,7 +98,10 @@ class Controller:
                 else: # if not flanking then aiming chance reduced by cover
                     hitChance -= cover
                 # range modifiers; weapons do better at close range and worse faraway
-                hitChance += srcTile.unit.weapon.rangeMod[int(board.straightDistance(srcTile, desTile))]
+                dis = int(straightDistance(srcTile, desTile))
+                if dis >= len(srcTile.unit.weapon.rangeMod):
+                    dis = len(stcTile.unit.weapon.rangeMod)
+                hitChance += srcTile.unit.weapon.rangeMod[dis]
                 # RNGESUS COMETH
                 if random.randint(0, 100) <= hitChance:
                     damage = random.randint(srcTile.unit.weapon.minDamage, srcTile.unit.weapon.maxDamage)
@@ -115,8 +118,8 @@ class Controller:
                 srcTile.unit.actionPoints -= 1
                 srcTile.unit.weapon.ammo = srcTile.unit.weapon.magSize
                 msg = "Weapon reloaded."
-                
-        else: 
+
+        else:
             msg = "You click on the wrong tile you noob!"
         return msg
 
