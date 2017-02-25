@@ -124,8 +124,12 @@ def main():
                         print("destination receive")
                         coord2 = pygame.mouse.get_pos()
                         desTile = controller.getTile(board1, coord2)
+                        if desTile.unit != None:
+                            desTile = None
+                        else:
+                            count = 0
                         #board2 = controller.makemove(board1, coord1,coord2)
-                        count = 0
+                        
                 else:
                     print("you pressed too fast")
                     #coord = pygame.mouse.get_pos()
