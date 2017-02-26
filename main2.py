@@ -12,6 +12,7 @@ import pygame
 import soldier
 from pygame.locals import *
 import time
+from pygame import display
 
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
@@ -26,10 +27,13 @@ def main():
        a loop until the function returns."""
     #Initialize Everything
     pygame.init()
+    pygame.font.init() # you have to call this at the start, 
+                        # if you want to use this module.
+    myfont = pygame.font.SysFont("Comic Sans MS", 10)
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
     board1 = board.Board(15,20)
-    screen = pygame.display.set_mode(((helper.getResolution()+4)*board1.width+10, (helper.getResolution()+4)*board1.height+10))
+    screen = pygame.display.set_mode(((helper.getResolution()+4)*board1.width, (helper.getResolution()+4)*board1.height))
 
     #tiles = {}
     # papixel = pygame.Surface((60,60))
@@ -60,15 +64,17 @@ def main():
     # Initialize time for checking click
     x = 0
     y = 0
+    
     for i in range(0,board1.width):
         for j in range(0,board1.height):
 
-
+            
             if (i==5)&(j==7):
                 unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
                 unit1.set_image(papixel)
                 board1.tiles[i][j].unit = unit1
                 soldiers[0].append(unit1)
+                testtile = board1.tiles[i][j]
             elif (i==1)&(j==2):
                 unit2 = soldier.Soldier("Lalala", copy.copy(wep_assault), (i,j), side = 1)
                 unit2.set_image(ns)
@@ -93,6 +99,8 @@ def main():
 
             if (j == 9) and ((i!=5) and (i!=6) and (i!=12)):
                 board1.tiles[i][j].passable = False
+            
+            
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0
@@ -100,7 +108,9 @@ def main():
     srcTile = None
     desTile = None
     ID = None
-
+    
+    currentTile = None
+    displayHover = 0
     currentSide = 0
     try:
         while 1:
@@ -110,9 +120,33 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE or event.unicode == 'q':
                     break
+            coord2 = pygame.mouse.get_pos()
+            currentTile = controller.getTile(board1, coord2)
+            if (currentTile.unit !=None):
+                if displayHover == 3:
+                    displayHover = 1
+            else: 
+                if displayHover == 2:
+                    displayHover = 0
+            
+            if displayHover == 1:
+                print ("mouse is over 'unit'")
+                renderer.renderHover(currentTile,myfont)
+                displayHover = 2
+                
+            elif(displayHover == 0):
+                print("mouse is not on unit anymore")
+                if count == 0:
+                    renderer.render(board1)
+                displayHover = 3
+                
+          
+                            
+            
             if pygame.mouse.get_pressed()[0]:
                 if ((time.time() - x) > 0.5):
                     x = time.time()
+                    
                     #print ("You have opened a chest!")
                     if (count == 0):
 

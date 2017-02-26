@@ -5,6 +5,7 @@ class Weapon:
         self.magSize = magSize
         self.ammo = magSize
         self.rangeMod = rangeMod
+        self.name = name
 
 class Soldier:
     def __init__(self, name, weapon, coords=(0,0), mobility = 5, health = 5, aim = 65, side = 0):
