@@ -10,7 +10,7 @@ class DummyAI:
         possibleSrcTile = []
         for i in range(0,board.width):
             for j in range(0,board.height):
-                if (board.tiles[i][j].unit != None) and (board.tiles[i][j].unit.side == side):
+                if (board.tiles[i][j].unit != None) and (board.tiles[i][j].unit.side == side) and (board.tiles[i][j].unit.actionPoints != 0):
                     possibleSrcTile.append(board.tiles[i][j])
         if len(possibleSrcTile) > 1:
             randomSrcNum = randint(0,len(possibleSrcTile)-1)
