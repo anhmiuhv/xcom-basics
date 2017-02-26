@@ -22,3 +22,22 @@ def getResolution():
 
 def getTextSize():
     return 12
+
+def checkWinCondition(board):
+    sideList = []
+    sideList.append(99999)
+    whowin = 99999
+    for j in range(0,board.height):
+            for i in range(0,board.width):
+                if (board.tiles[i][j].unit != None):
+                    check = 1
+                    for k in range(0,len(sideList)):
+                        if sideList[k] == board.tiles[i][j].unit.side:
+                            check = 0
+                    if check:
+                        sideList.append(board.tiles[i][j].unit.side)
+    if (len(sideList)==2):
+        whowin = sideList[1]
+    else:
+        whowin = 4
+    return whowin

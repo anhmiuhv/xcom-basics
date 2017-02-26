@@ -231,8 +231,13 @@ def main():
                     for u in soldiers[currentSide]:
                         u.actionPoints = 2
 
-
-
+                
+                if helper.checkWinCondition(board1)==0:
+                    print("XCOM wins yay")
+                elif helper.checkWinCondition(board1)==1:
+                    print("XCOM noob, Alien win")
+                else: 
+                    print("No one wins")
             pygame.display.flip()
     finally:
         pygame.quit()
