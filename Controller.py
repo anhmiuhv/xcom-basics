@@ -56,11 +56,13 @@ class Controller:
         if ID == 1:
             cameFrom, cost_so_far = board.moveDistance(srcTile, srcTile.unit.mobility)
             for t in cost_so_far:
-                l.append(t)
+                if t.unit == None:
+                    l.append(t)
         if ID == 2:
             cameFrom, cost_so_far = board.moveDistance(srcTile, srcTile.unit.mobility * 2)
             for t in cost_so_far:
-                l.append(t)
+                if t.unit == None:
+                    l.append(t)
         if ID == 3:
             for i in range(0, board.width):
                 for t in board.tiles[i]:
