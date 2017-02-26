@@ -132,8 +132,8 @@ class Board:
             t = self.tiles[x-1][y+1]
             if t.passable and t.unit == None and (tile.coverS <= 50 and tile.coverW <= 50) and (t.coverN <= 50 and t.coverE <= 50):
                 nlist.append(t)
-        
-        
+
+
     # returns the straight line distance between two tiles
     def straightDistance(self, tile1, tile2):
         return math.sqrt(abs(tile1.coords[0] - tile2.coords[0])**2 + abs(tile1.coords[1] - tile2.coords[1])**2)
@@ -159,9 +159,9 @@ class Board:
                 else:
                     cost = SQRT2
                 new_cost = cost_so_far[current] + cost
-                if new_cost > distance:
-                    return cameFrom, cost_so_far
-                if n not in cost_so_far or new_cost < cost_so_far[n]:
+                #if new_cost > distance:
+                #    return cameFrom, cost_so_far
+                if (n not in cost_so_far or new_cost < cost_so_far[n]) and new_cost <= distance:
                     cost_so_far[n] = new_cost
                     priority = new_cost
                     opqueue.put(n, priority)
