@@ -117,8 +117,8 @@ def main():
 
 
 
-            if currentSide == 0:
-                dummyAI.execution(board1,0)
+            if currentSide == 1:
+                dummyAI.execution(board1,1)
                 srcTile = dummyAI.srcTile
                 desTile = dummyAI.desTile
                 ID = dummyAI.ID
