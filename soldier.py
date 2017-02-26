@@ -8,7 +8,7 @@ class Weapon:
         self.name = name
 
 class Soldier:
-    def __init__(self, name, weapon, coords=(0,0), mobility = 5, health = 5, aim = 65, side = 0):
+    def __init__(self, name, weapon, coords=(0,0), mobility = 3, health = 5, aim = 65, side = 0):
         self.name = name
         self.weapon = weapon
         self.coords = coords
