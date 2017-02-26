@@ -13,6 +13,7 @@ import soldier
 from pygame.locals import *
 import time
 from pygame import display
+from DummyAI import DummyAI
 
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
@@ -84,6 +85,8 @@ def main():
     currentTile = None
     displayHover = 0
     currentSide = 0
+    
+    dummyAI = DummyAI('noob1')
     try:
         while 1:
             event = pygame.event.wait()
@@ -114,7 +117,12 @@ def main():
 
 
 
-
+            if currentSide == 1:
+                dummyAI.execution(board1,1)
+                srcTile = dummyAI.srcTile
+                desTile = dummyAI.desTile
+                ID = dummyAI.ID
+                
             if pygame.mouse.get_pressed()[0]:
                 if ((time.time() - x) > 0.5):
                     x = time.time()
@@ -210,10 +218,49 @@ def main():
 
                 if helper.checkWinCondition(board1)==0:
                     print("XCOM wins yay")
+                    board1 = board.Board(15,20)
+                    for i in range(0,board1.width):
+                        for j in range(0,board1.height):
+                            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
+                            exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
+                
+                
+                            if (j == 9) and ((i!=5) and (i!=6) and (i!=12)):
+                                board1.tiles[i][j].passable = False
+                    renderer = Renderer.Renderer(board1,screen)
+                    controller = Controller.Controller()
+                    count = 0
+                
+                    srcTile = None
+                    desTile = None
+                    ID = None
+                
+                    currentTile = None
+                    displayHover = 0
+                    currentSide = 0
                 elif helper.checkWinCondition(board1)==1:
                     print("XCOM noob, Alien win")
-                else:
-                    print("No one wins")
+                    board1 = board.Board(15,20)
+                    for i in range(0,board1.width):
+                        for j in range(0,board1.height):
+                            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
+                            exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
+                
+                
+                            if (j == 9) and ((i!=5) and (i!=6) and (i!=12)):
+                                board1.tiles[i][j].passable = False
+                    renderer = Renderer.Renderer(board1,screen)
+                    controller = Controller.Controller()
+                    count = 0
+                
+                    srcTile = None
+                    desTile = None
+                    ID = None
+                
+                    currentTile = None
+                    displayHover = 0
+                    currentSide = 0
+                
             pygame.display.flip()
     finally:
         pygame.quit()
