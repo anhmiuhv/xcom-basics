@@ -117,8 +117,8 @@ def main():
 
 
 
-            if currentSide == 1:
-                dummyAI.execution(board1,1)
+            if currentSide == 0:
+                dummyAI.execution(board1,0)
                 srcTile = dummyAI.srcTile
                 desTile = dummyAI.desTile
                 ID = dummyAI.ID
@@ -195,7 +195,7 @@ def main():
                         print("you press too fast")
 
             if (srcTile != None) and (desTile != None) and (ID != None):
-                print("action perform")
+                #print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
                 srcTile = None
                 desTile = None
