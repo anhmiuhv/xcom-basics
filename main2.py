@@ -50,9 +50,7 @@ def main():
     ns.set_colorkey(transColor)
     ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
 
-    blank = pygame.Surface((helper.getResolution(),helper.getResolution()))
-    blank = papixel.convert()
-    blank.fill((255, 255, 255))
+    
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
     soldiers = []
     soldiers.append([])
@@ -67,34 +65,8 @@ def main():
 
     for i in range(0,board1.width):
         for j in range(0,board1.height):
-
-
-            if (i==5)&(j==7):
-                unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
-                unit1.set_image(papixel)
-                board1.tiles[i][j].unit = unit1
-                soldiers[0].append(unit1)
-                testtile = board1.tiles[i][j]
-            elif (i==1)&(j==2):
-                unit2 = soldier.Soldier("Lalala", copy.copy(wep_assault), (i,j), side = 1)
-                unit2.set_image(ns)
-                board1.tiles[i][j].unit = unit2
-                soldiers[1].append(unit2)
-            elif (i ==10)&(j==10):
-                unit1 = soldier.Soldier("Julian2", copy.copy(wep_assault), (i,j))
-                unit1.set_image(papixel)
-                board1.tiles[i][j].unit = unit1
-                soldiers[0].append(unit1)
-
-
-            if (i==3)&(j==6):
-                board1.tiles[i][j].coverN = 1
-            if (i==3)&(j==6):
-                board1.tiles[i][j].coverW = 1
-            if (i==2)&(j==6):
-                board1.tiles[i][j].coverS = 1
-            if (i==11)&(j==7):
-                board1.tiles[i][j].coverE = 1
+            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
+            exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
 
 
             if (j == 9) and ((i!=5) and (i!=6) and (i!=12)):

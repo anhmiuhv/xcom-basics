@@ -1,0 +1,14 @@
+if (i==3)&(j==6):
+    board1.tiles[i][j].coverN = 1
+if (i==3)&(j==6):
+    board1.tiles[i][j].coverW = 1
+if (i==2)&(j==6):
+    board1.tiles[i][j].coverS = 1
+if (i==11)&(j==7):
+    board1.tiles[i][j].coverE = 1
+if (i==11)&(j==6):
+    board1.tiles[i][j].coverE = 1
+    board1.tiles[i][j].coverN = 1
+if (i==10)&(j==6):
+    board1.tiles[i][j].coverN = 1
+    
