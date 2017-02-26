@@ -27,7 +27,7 @@ def main():
        a loop until the function returns."""
     #Initialize Everything
     pygame.init()
-    pygame.font.init() # you have to call this at the start, 
+    pygame.font.init() # you have to call this at the start,
                         # if you want to use this module.
     myfont = pygame.font.SysFont("Comic Sans MS", helper.getTextSize())
     pygame.display.set_caption('XCom - the Unknown Noob')
@@ -64,11 +64,11 @@ def main():
     # Initialize time for checking click
     x = 0
     y = 0
-    
+
     for i in range(0,board1.width):
         for j in range(0,board1.height):
 
-            
+
             if (i==5)&(j==7):
                 unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
                 unit1.set_image(papixel)
@@ -99,8 +99,8 @@ def main():
 
             if (j == 9) and ((i!=5) and (i!=6) and (i!=12)):
                 board1.tiles[i][j].passable = False
-            
-            
+
+
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0
@@ -108,7 +108,7 @@ def main():
     srcTile = None
     desTile = None
     ID = None
-    
+
     currentTile = None
     displayHover = 0
     currentSide = 0
@@ -125,28 +125,28 @@ def main():
             if (currentTile.unit !=None):
                 if displayHover == 3:
                     displayHover = 1
-            else: 
+            else:
                 if displayHover == 2:
                     displayHover = 0
-            
+
             if displayHover == 1:
                 print ("mouse is over 'unit'")
                 renderer.renderHover(currentTile,myfont)
                 displayHover = 2
-                
+
             elif(displayHover == 0):
                 print("mouse is not on unit anymore")
                 if count == 0:
                     renderer.render(board1)
                 displayHover = 3
-                
-          
-                            
-            
+
+
+
+
             if pygame.mouse.get_pressed()[0]:
                 if ((time.time() - x) > 0.5):
                     x = time.time()
-                    
+
                     #print ("You have opened a chest!")
                     if (count == 0):
 
@@ -178,34 +178,38 @@ def main():
                     if ((time.time() - y) > 0.5):
                         y = time.time()
                         if event.key == pygame.K_ESCAPE or event.unicode == '1':
-                            print("move")
-                            ID = 1
-                            count = 2
-                            possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-                            renderer.renderPossibleTiles(possibleTiles)
+                            if 1 in controller.possibleAction(srcTile):
+                                print("move")
+                                ID = 1
+                                count = 2
+                                possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                                renderer.renderPossibleTiles(possibleTiles)
                         if event.key == pygame.K_ESCAPE or event.unicode == '2':
-                            print("dash")
-                            ID = 2
-                            count = 2
-                            possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-                            renderer.renderPossibleTiles(possibleTiles)
+                            if 2 in controller.possibleAction(srcTile):
+                                print("dash")
+                                ID = 2
+                                count = 2
+                                possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                                renderer.renderPossibleTiles(possibleTiles)
                         if event.key == pygame.K_ESCAPE or event.unicode == '3':
-                            print("shoot")
-                            ID = 3
-                            count = 2
-                            possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-                            renderer.renderPossibleTiles(possibleTiles)
+                            if 3 in controller.possibleAction(srcTile):
+                                print("shoot")
+                                ID = 3
+                                count = 2
+                                possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                                renderer.renderPossibleTiles(possibleTiles)
                         if event.key == pygame.K_ESCAPE or event.unicode == '4':
-                            print("reload")
-                            ID = 4
-                            desTile = board.Tile((100,100))
-                            print(controller.performAction(board1, srcTile, desTile, ID))
-                            desTile = None
-                            srcTile = None
-                            ID = None
-                            count = 0
-                            renderer.render(board1)
-#                         possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+                            if 4 in controller.possibleAction(srcTile):
+                                print("reload")
+                                ID = 4
+                                desTile = board.Tile((100,100))
+                                print(controller.performAction(board1, srcTile, desTile, ID))
+                                desTile = None
+                                srcTile = None
+                                ID = None
+                                count = 0
+                                renderer.render(board1)
+#                             possibleTiles = controller.possibleTiles(board1, srcTile, ID)
 #                         renderer.renderPossibleTiles(possibleTiles)
                     else:
                         print("you press too fast")
@@ -231,12 +235,12 @@ def main():
                     for u in soldiers[currentSide]:
                         u.actionPoints = 2
 
-                
+
                 if helper.checkWinCondition(board1)==0:
                     print("XCOM wins yay")
                 elif helper.checkWinCondition(board1)==1:
                     print("XCOM noob, Alien win")
-                else: 
+                else:
                     print("No one wins")
             pygame.display.flip()
     finally:
