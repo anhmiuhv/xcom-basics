@@ -29,7 +29,7 @@ def main():
     pygame.init()
     pygame.font.init() # you have to call this at the start, 
                         # if you want to use this module.
-    myfont = pygame.font.SysFont("Comic Sans MS", 10)
+    myfont = pygame.font.SysFont("Comic Sans MS", helper.getTextSize())
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
     board1 = board.Board(15,20)

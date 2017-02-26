@@ -19,3 +19,6 @@ def load_images(*files):
 
 def getResolution():
     return 40
+
+def getTextSize():
+    return 12
