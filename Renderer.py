@@ -137,23 +137,23 @@ class Renderer():
 #         self.aim = aim
 #         self.side = side
 #         self.actionPoints = 2
-        nametext = myfont.render('Name: ' + unit.name, False, (0,0,0))
+        nametext = myfont.render('Name: ' + unit.name, True, (0,0,0))
         hover.blit(nametext,(0,0))
-        weapontext = myfont.render('Weapon: ' + unit.weapon.name, False, (0,0,0))
+        weapontext = myfont.render('Weapon: ' + unit.weapon.name, True, (0,0,0))
         hover.blit(weapontext,(0,helper.getTextSize()))
-        ammotext = myfont.render('Ammo: ' + str(unit.weapon.ammo), False, (0,0,0))
+        ammotext = myfont.render('Ammo: ' + str(unit.weapon.ammo), True, (0,0,0))
         hover.blit(ammotext,(0,2*helper.getTextSize()))
-        coordstext = myfont.render('Coords: ( ' + str(unit.coords[0]) + ', ' + str(unit.coords[1]) + ')', False, (0,0,0))
+        coordstext = myfont.render('Coords: ( ' + str(unit.coords[0]) + ', ' + str(unit.coords[1]) + ')', True, (0,0,0))
         hover.blit(coordstext,(0,3*helper.getTextSize()))
-        healthtext = myfont.render('Health: ' + str(unit.health), False, (0,0,0))
+        healthtext = myfont.render('Health: ' + str(unit.health), True, (0,0,0))
         hover.blit(healthtext,(0,4*helper.getTextSize()))
-        mobilitytext = myfont.render('Mobility: ' + str(unit.mobility), False, (0,0,0))
+        mobilitytext = myfont.render('Mobility: ' + str(unit.mobility), True, (0,0,0))
         hover.blit(mobilitytext,(0,5*helper.getTextSize()))
-        aimtext = myfont.render('Aim: ' + str(unit.aim), False, (0,0,0))
+        aimtext = myfont.render('Aim: ' + str(unit.aim), True, (0,0,0))
         hover.blit(aimtext,(0,6*helper.getTextSize()))
-        sidetext = myfont.render('Side: ' + str(unit.side), False, (0,0,0))
+        sidetext = myfont.render('Side: ' + str(unit.side), True, (0,0,0))
         hover.blit(sidetext,(0,7*helper.getTextSize()))
-        actionPointstext = myfont.render('Action Point: ' + str(unit.actionPoints), False, (0,0,0))
+        actionPointstext = myfont.render('Action Point: ' + str(unit.actionPoints), True, (0,0,0))
         hover.blit(actionPointstext,(0,8*helper.getTextSize()))
         xpos = 0
         ypos = 0
