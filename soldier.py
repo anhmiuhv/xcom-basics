@@ -1,20 +1,24 @@
 class Weapon:
-    def __init__(self, name, minDamage, maxDamage, magSize, rangeMod):
+    def __init__(self, name, minDamage, maxDamage, magSize, rangeMod, critChance = 10, critDamage = 2):
         self.minDamage = minDamage
         self.maxDamage = maxDamage
         self.magSize = magSize
         self.ammo = magSize
         self.rangeMod = rangeMod
         self.name = name
+        self.critChance = critChance
+        self.critDamage = critDamage
 
 class Soldier:
-    def __init__(self, name, weapon, coords=(0,0), mobility = 3, health = 5, aim = 65, side = 0):
+    def __init__(self, name, weapon, coords=(0,0), mobility = 4, health = 5, aim = 65, defense = 0, dodge = 10, side = 0):
         self.name = name
         self.weapon = weapon
         self.coords = coords
         self.health = health
         self.mobility = mobility
         self.aim = aim
+        self.defense = defense
+        self.dodge = dodge
         self.side = side
         self.actionPoints = 2
 

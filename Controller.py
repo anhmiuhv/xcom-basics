@@ -79,7 +79,7 @@ class Controller:
         msg = ""
         possibleTiles = self.possibleTiles(board, srcTile, ID)
         action = False
-        
+
         for tile in possibleTiles:
             if (tile.coords == desTile.coords):
                 action = True
@@ -96,10 +96,12 @@ class Controller:
                     print("Dash Successful")
             if ID == 3:
                 srcTile.unit.actionPoints = 0
-                hitChance = srcTile.unit.aim
+                hitChance = srcTile.unit.aim - desTile.unit.defense
+                critChance = srcTile.unit.weapon.critChance
+                dodgeChance = desTile.unit.dodge
                 cover = board.coverValue(srcTile, desTile)
-                if (cover <= 0): # flanking gets a 40% bonus
-                    hitChance += 40
+                if (cover <= 0): # flanking gets a 40% bonus to crit chance
+                    critChance += 40
                 else: # if not flanking then aiming chance reduced by cover
                     hitChance -= cover
                 # range modifiers; weapons do better at close range and worse faraway
@@ -108,13 +110,41 @@ class Controller:
                     dis = len(stcTile.unit.weapon.rangeMod) - 1
                 hitChance += srcTile.unit.weapon.rangeMod[dis]
                 # RNGESUS COMETH
-                if random.randint(0, 100) <= hitChance:
+                # Long War 2 calculation for maximum RNGesus
+                # 0 = miss, 1 = graze (50% damage), 2 = hit, 3 = crit
+                damageType = 0
+                num = random.randint(0, 100)
+                critnum = random.randint(0, 100)
+                dodgenum = random.randint(0, 100)
+                if num <= hitChance - 10:
+                    damageType = 2
+                elif num <= hitChance + 10:
+                    damageType = 1
+                else:
+                    damageType = 0
+                if damageType > 0:
+                    if critnum <= critChance:
+                        damageType += 1
+                    if dodgenum <= dodgeChance:
+                        damageType -= 1
+                    if damageType <= 0:
+                        damageType = 1
+                    elif damageType > 3:
+                        damageType = 3
                     damage = random.randint(srcTile.unit.weapon.minDamage, srcTile.unit.weapon.maxDamage)
+                    if (damageType == 3):
+                        damage += srcTile.unit.weapon.critDamage
+                        msg = "Crit: "
+                    elif (damageType == 1):
+                        damage /= 2
+                        msg = "Grazed: "
+                    else:
+                        msg = "Hit: "
                     desTile.unit.health -= damage
                     if (desTile.unit.health <= 0):
                         desTile.unit = None
                     srcTile.unit.weapon.ammo -= 1
-                    msg = "Hit: " + str(hitChance) + "% chance, " + str(damage) + " damage dealt."
+                    msg = msg + str(hitChance) + "% Hit " + str(critChance) + "% Crit " + str(dodgeChance) + "% Dodge, " + str(damage) + " damage dealt."
                     if desTile.unit == None:
                         msg = msg + "  ... and your target die"
                 else:
