@@ -48,6 +48,7 @@ class Controller:
             l.append(3)
         if srcTile.unit.weapon.ammo < srcTile.unit.weapon.magSize:
             l.append(4)
+            #print("test")
         return l
 
     # possible target tiles for action
@@ -78,10 +79,12 @@ class Controller:
         msg = ""
         possibleTiles = self.possibleTiles(board, srcTile, ID)
         action = False
+        
         for tile in possibleTiles:
             if (tile.coords == desTile.coords):
                 action = True
-
+        if ID == 4:
+            action = True
         if action:
             if ID == 1 or ID == 2:
                 srcTile.unit.actionPoints -= ID
