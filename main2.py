@@ -88,7 +88,8 @@ def main():
     alienwin = 0
     try:
         while 1:
-            event = pygame.event.poll()
+            #event = pygame.event.poll()
+            event = pygame.event.wait()
             if event.type == pygame.QUIT:
                 break
             if event.type == pygame.KEYDOWN:
@@ -204,15 +205,15 @@ def main():
 #                         renderer.renderPossibleTiles(possibleTiles)
                     else:
                         print("you press too fast")
-#             if (srcTile == None):
-#                 if currentSide == 0:
-#                     currentSide = 1
-#                     print("Alien Activity")
+            if (srcTile == None):
+                if currentSide == 1:
+                    currentSide = 0
+                    print("XCOM's Turn")
 #                 else:
-#                     currentSide = 0
-#                     print("XCOM's Turn")
-#                 for u in soldiers[currentSide]:
-#                     u.actionPoints = 2
+#                     currentSide = 1
+#                     print("Alien's Turn")
+                    for u in soldiers[currentSide]:
+                        u.actionPoints = 2
                 
             if (srcTile != None) and (desTile != None) and (ID != None):
                 #print("action perform")
