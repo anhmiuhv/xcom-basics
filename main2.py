@@ -57,7 +57,9 @@ def main():
     soldiers.append([])
     soldiers.append([])
 
-    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,-2,-4,-6,-8,-10,-12,-14,-16,-18,-20,-25])
+    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,0,0,0,0,0,0,0,0,-5,-10,-15,-20,-25,-30], 0, 2)
+    wep_shotgun = soldier.Weapon("Shotgun", 4, 7, 3, [45,40,32,24,16,8,4,0,0,-4,-8,-16,-32,-40,-70,-80,-90,-100], 20, 3)
+    wep_sniper = soldier.Weapon("Sniper Rifle", 4, 6, 3, [-35,-30,-27,-24,-21,-18,-15,-12,-9,-6,-3,0,0,0,0,0,0,0,0,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10], 10, 3, True)
 
 
     # Initialize time for checking click

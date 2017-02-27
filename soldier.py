@@ -1,5 +1,5 @@
 class Weapon:
-    def __init__(self, name, minDamage, maxDamage, magSize, rangeMod, critChance = 10, critDamage = 2):
+    def __init__(self, name, minDamage, maxDamage, magSize, rangeMod, critChance = 10, critDamage = 2, heavy = False):
         self.minDamage = minDamage
         self.maxDamage = maxDamage
         self.magSize = magSize
@@ -8,6 +8,7 @@ class Weapon:
         self.name = name
         self.critChance = critChance
         self.critDamage = critDamage
+        self.heavy = heavy
 
 class Soldier:
     def __init__(self, name, weapon, coords=(0,0), mobility = 4, health = 5, aim = 65, defense = 0, dodge = 10, side = 0):
