@@ -27,7 +27,8 @@ class DummyAI:
         
         
         self.ID = randint(1,4)
-        
+        while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
+            self.ID = randint(1,4)
         if self.srcTile != None:
             possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
             if (len(possibleDesTile)) > 1:
