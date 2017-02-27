@@ -41,17 +41,17 @@ def main():
     # #papixel = papixel.convert()
     # papixel.fill((0, 0, 255))
 
-    papixel = helper.load_image('papixel.png').convert()
-    transColor = papixel.get_at((0,0))
-    papixel.set_colorkey(transColor)
-    papixel = pygame.transform.scale(papixel, (helper.getResolution(), helper.getResolution()))
+#    papixel = helper.load_image('papixel.png').convert()
+#    transColor = papixel.get_at((0,0))
+#    papixel.set_colorkey(transColor)
+#    papixel = pygame.transform.scale(papixel, (helper.getResolution(), helper.getResolution()))
 #picture = pygame.transform.scale(picture, (1280, 720))
-    ns = helper.load_image('ns.png').convert()
-    transColor = ns.get_at((0,0))
-    ns.set_colorkey(transColor)
-    ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
+#    ns = helper.load_image('ns.png').convert()
+#    transColor = ns.get_at((0,0))
+#    ns.set_colorkey(transColor)
+#    ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
 
-    
+
     #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
     soldiers = []
     soldiers.append([])
@@ -82,7 +82,7 @@ def main():
     currentTile = None
     displayHover = 0
     currentSide = 0
-    
+
     dummyAI = DummyAI('noob1')
     xcomwin = 0
     alienwin = 0
@@ -105,13 +105,13 @@ def main():
             else:
                 if displayHover == 2:
                     displayHover = 0
-  
+
             if displayHover == 1:
                 print ("mouse is over 'unit'")
                 renderer.renderHover(currentTile,myfont)
                 displayHover = 2
                 print(currentSide)
-  
+
             elif(displayHover == 0):
                 print("mouse is not on unit anymore")
                 if count == 0:
@@ -126,23 +126,23 @@ def main():
 #                 srcTile = dummyAI.srcTile
 #                 desTile = dummyAI.desTile
 #                 ID = dummyAI.ID
-            
+
             if currentSide == 1:
                 dummyAI.execution(board1,soldiers,currentSide)
                 srcTile = dummyAI.srcTile
                 desTile = dummyAI.desTile
                 ID = dummyAI.ID
-                
+
             if pygame.mouse.get_pressed()[0]:
                 if ((time.time() - x) > 0.5):
                     x = time.time()
- 
+
                     #print ("You have opened a chest!")
                     if (count == 0):
- 
+
                         coord1 = pygame.mouse.get_pos()
                         srcTile = controller.getTile(board1, coord1)
- 
+
                         if (srcTile.unit != None and srcTile.unit in soldiers[currentSide] and srcTile.unit.actionPoints > 0):
                             print(str(srcTile.unit.actionPoints))
                             count = count + 1
@@ -151,15 +151,15 @@ def main():
                         else:
                             count = 0
                             print("You do not click on an unit nooob!")
- 
+
                     elif(count == 2):
                         print("destination receive")
                         coord2 = pygame.mouse.get_pos()
                         desTile = controller.getTile(board1, coord2)
- 
+
                         count = 0
                         #board2 = controller.makemove(board1, coord1,coord2)
- 
+
                 else:
                     print("you pressed too fast")
                     #coord = pygame.mouse.get_pos()
@@ -214,7 +214,7 @@ def main():
 #                     print("Alien's Turn")
                     for u in soldiers[currentSide]:
                         u.actionPoints = 2
-                
+
             if (srcTile != None) and (desTile != None) and (ID != None):
                 #print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
@@ -245,16 +245,16 @@ def main():
                         for j in range(0,board1.height):
                             exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
                             exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
-                
-            
+
+
                     renderer = Renderer.Renderer(board1,screen)
                     controller = Controller.Controller()
                     count = 0
-                
+
                     srcTile = None
                     desTile = None
                     ID = None
-                
+
                     currentTile = None
                     displayHover = 0
                     currentSide = 0
@@ -266,20 +266,20 @@ def main():
                         for j in range(0,board1.height):
                             exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
                             exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
-                
-            
+
+
                     renderer = Renderer.Renderer(board1,screen)
                     controller = Controller.Controller()
                     count = 0
-                
+
                     srcTile = None
                     desTile = None
                     ID = None
-                
+
                     currentTile = None
                     displayHover = 0
                     currentSide = 0
-                
+
             pygame.display.flip()
     finally:
         pygame.quit()

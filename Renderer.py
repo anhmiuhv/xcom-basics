@@ -14,6 +14,8 @@ if not pygame.image.get_extended():
 
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 
+unitImage = {}
+
 class Renderer():
     def __init__(self,board,screen):
 
@@ -38,7 +40,21 @@ class Renderer():
         #Display The Background
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
+
+        pa = helper.load_image('papixel.png').convert()
+        transColor = pa.get_at((0,0))
+        pa.set_colorkey(transColor)
+        pa = pygame.transform.scale(pa, (helper.getResolution(), helper.getResolution()))
+        #picture = pygame.transform.scale(picture, (1280, 720))
+        ns = helper.load_image('ns.png').convert()
+        transColor = ns.get_at((0,0))
+        ns.set_colorkey(transColor)
+        ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
+        unitImage["pa"] = pa
+        unitImage["ns"] = ns
+
         self.render(self.board)
+
 
     def render(self, board):
         dummy = pygame.Surface(self.screen.get_size())
@@ -82,7 +98,7 @@ class Renderer():
         #self.coverW = coverW
 
                 if (self.board.tiles[i][j].unit != None):
-                    blank.blit(self.board.tiles[i][j].unit.image, (2,2))
+                    blank.blit(unitImage[self.board.tiles[i][j].unit.image], (2,2))
                     #test = 1
                 elif(self.board.tiles[i][j].passable == False):
                     blank.blit(wall, (2,2))
