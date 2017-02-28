@@ -107,7 +107,7 @@ class Controller:
                 # range modifiers; weapons do better at close range and worse faraway
                 dis = int(board.straightDistance(srcTile, desTile))
                 if dis >= len(srcTile.unit.weapon.rangeMod):
-                    dis = len(stcTile.unit.weapon.rangeMod) - 1
+                    dis = len(srcTile.unit.weapon.rangeMod) - 1
                 hitChance += srcTile.unit.weapon.rangeMod[dis]
                 # RNGESUS COMETH
                 # Long War 2 calculation for maximum RNGesus
