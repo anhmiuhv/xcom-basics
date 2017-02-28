@@ -44,7 +44,7 @@ class Controller:
         l.append(1)
         if srcTile.unit.actionPoints == 2:
             l.append(2)
-        if (srcTile.unit.weapon.ammo > 0) and (!srcTile.unit.weapon.heavy or srcTile.unit.actionPoints == 2):
+        if (srcTile.unit.weapon.ammo > 0) and (not srcTile.unit.weapon.heavy or srcTile.unit.actionPoints == 2):
             l.append(3)
         if srcTile.unit.weapon.ammo < srcTile.unit.weapon.magSize:
             l.append(4)
