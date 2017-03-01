@@ -88,6 +88,29 @@ def main():
     dummyAI = DummyAI('noob1')
     xcomwin = 0
     alienwin = 0
+    
+    def resetBoard():
+        nonlocal board1, renderer, controller, count, srcTile, desTile, ID, currentTile \
+         ,displayHover, currentSide, wep_sniper, wep_assault, wep_shotgun, soldiers
+        board1 = board.Board(15,20)
+        for i in range(0,board1.width):
+            for j in range(0,board1.height):
+                exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
+                exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
+    
+
+        renderer = Renderer.Renderer(board1,screen)
+        controller = Controller.Controller()
+        count = 0
+    
+        srcTile = None
+        desTile = None
+        ID = None
+    
+        currentTile = None
+        displayHover = 0
+        currentSide = 0
+        
     try:
         while 1:
             event = pygame.event.poll()
@@ -99,29 +122,6 @@ def main():
                     print("XCOM wins: " + str(xcomwin))
                     print("ALIENS wins: " + str(alienwin))
                     break
-#             coord2 = pygame.mouse.get_pos()
-#             currentTile = controller.getTile(board1, coord2)
-#             if (currentTile.unit !=None):
-#                 if displayHover == 3:
-#                     displayHover = 1
-#             else:
-#                 if displayHover == 2:
-#                     displayHover = 0
-#    
-#             if displayHover == 1:
-#                 print ("mouse is over 'unit'")
-#                 renderer.renderHover(currentTile,myfont)
-#                 displayHover = 2
-#                 print(currentSide)
-#    
-#             elif(displayHover == 0):
-#                 print("mouse is not on unit anymore")
-#                 if count == 0:
-#                     renderer.render(board1)
-#                 displayHover = 3
-#                 print(currentSide)
-
-
 
             if currentSide == 0:
                 dummyAI.randexecution(board1,soldiers,currentSide)
@@ -135,78 +135,7 @@ def main():
                 desTile = dummyAI.desTile
                 ID = dummyAI.ID
                 
-#             if pygame.mouse.get_pressed()[0]:
-#                 if ((time.time() - x) > 0.5):
-#                     x = time.time()
-#  
-#                     #print ("You have opened a chest!")
-#                     if (count == 0):
-#  
-#                         coord1 = pygame.mouse.get_pos()
-#                         srcTile = controller.getTile(board1, coord1)
-#  
-#                         if (srcTile.unit != None and srcTile.unit in soldiers[currentSide] and srcTile.unit.actionPoints > 0):
-#                             print(str(srcTile.unit.actionPoints))
-#                             count = count + 1
-#                             print("got it")
-#                             renderer.renderPossibleTiles([srcTile])
-#                         else:
-#                             count = 0
-#                             print("You do not click on an unit nooob!")
-#  
-#                     elif(count == 2):
-#                         print("destination receive")
-#                         coord2 = pygame.mouse.get_pos()
-#                         desTile = controller.getTile(board1, coord2)
-#  
-#                         count = 0
-#                         #board2 = controller.makemove(board1, coord1,coord2)
-#  
-#                 else:
-#                     print("you pressed too fast")
-#                     #coord = pygame.mouse.get_pos()
-#             if event.type == pygame.KEYDOWN:
-#                 if (count == 1)or(count == 2):
-#                     if ((time.time() - y) > 0.5):
-#                         y = time.time()
-#                         if event.key == pygame.K_ESCAPE or event.unicode == '1':
-#                             if 1 in controller.possibleAction(srcTile):
-#                                 print("move")
-#                                 ID = 1
-#                                 count = 2
-#                                 possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-#                                 renderer.renderPossibleTiles(possibleTiles)
-#                         if event.key == pygame.K_ESCAPE or event.unicode == '2':
-#                             if 2 in controller.possibleAction(srcTile):
-#                                 print("dash")
-#                                 ID = 2
-#                                 count = 2
-#                                 possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-#                                 renderer.renderPossibleTiles(possibleTiles)
-#                         if event.key == pygame.K_ESCAPE or event.unicode == '3':
-#                             if 3 in controller.possibleAction(srcTile):
-#                                 print("shoot")
-#                                 ID = 3
-#                                 count = 2
-#                                 possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-#                                 renderer.renderPossibleTiles(possibleTiles)
-#                         if event.key == pygame.K_ESCAPE or event.unicode == '4':
-#                             print(controller.possibleAction(srcTile))
-#                             if 4 in controller.possibleAction(srcTile):
-#                                 print(controller.possibleAction(srcTile))
-#                                 print("reload")
-#                                 ID = 4
-#                                 desTile = board.Tile((100,100))
-#                                 print(controller.performAction(board1, srcTile, desTile, ID))
-#                                 desTile = None
-#                                 srcTile = None
-#                                 ID = None
-#                                 count = 0
-#                                 renderer.render(board1)
-# #                             possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-# #                         renderer.renderPossibleTiles(possibleTiles)
-#                     else:
-#                         print("you press too fast")
+
             if (srcTile == None):
                 if currentSide == 1:
                     currentSide = 0
@@ -242,45 +171,11 @@ def main():
                 if helper.checkWinCondition(board1)==0:
                     print("XCOM wins yay")
                     xcomwin = xcomwin + 1
-                    board1 = board.Board(15,20)
-                    for i in range(0,board1.width):
-                        for j in range(0,board1.height):
-                            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
-                            exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
-                
-            
-                    renderer = Renderer.Renderer(board1,screen)
-                    controller = Controller.Controller()
-                    count = 0
-                
-                    srcTile = None
-                    desTile = None
-                    ID = None
-                
-                    currentTile = None
-                    displayHover = 0
-                    currentSide = 0
+                    resetBoard()
                 elif helper.checkWinCondition(board1)==1:
                     print("XCOM noob, Alien win")
                     alienwin = alienwin+1
-                    board1 = board.Board(15,20)
-                    for i in range(0,board1.width):
-                        for j in range(0,board1.height):
-                            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
-                            exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
-                
-            
-                    renderer = Renderer.Renderer(board1,screen)
-                    controller = Controller.Controller()
-                    count = 0
-                
-                    srcTile = None
-                    desTile = None
-                    ID = None
-                
-                    currentTile = None
-                    displayHover = 0
-                    currentSide = 0
+                    resetBoard()
                 
             pygame.display.flip()
     finally:

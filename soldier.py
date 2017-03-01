@@ -31,4 +31,6 @@ class Soldier:
         return self.health / self.maxhealth < 0.3
     
     def __eq__(self, a):
+        if a == None:
+            return False
         return self.name == a.name
