@@ -219,7 +219,7 @@ class DummyAI:
         for g in otherside:
             for i in range(0,board.width):
                 for j in range(0,board.height):
-                    utilityB[i][j] -= self.controller.dangerScore(board, board.tiles[i][j],g, g.unit)
+                    utilityB[i][j] -= self.controller.damageScore(board, board.tiles[i][j], thesoldier, g)
                     
         return utilityB
                 
