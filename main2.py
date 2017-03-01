@@ -177,7 +177,6 @@ def main():
 
                         #print ("You have opened a chest!")
                         count, srcTile, desTile = eventHandler.mouseButtonHandler(count, controller, board1, soldiers, currentSide, renderer, srcTile, desTile)
-                        count = 0
                             #board2 = controller.makemove(board1, coord1,coord2)
 
                     else:
