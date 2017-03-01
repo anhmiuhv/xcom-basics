@@ -26,10 +26,10 @@ mode = 0
 
 if args.mode == "pvp":
     mode = 1
-   
+
 if args.mode == "pve":
     mode = 2
-    
+
 if args.mode == "eve":
     mode = 3
 #see if we can load more than standard BMP
@@ -50,13 +50,37 @@ def main():
     myfont = pygame.font.SysFont("Comic Sans MS", helper.getTextSize())
     pygame.display.set_caption('XCom - the Unknown Noob')
     pygame.mouse.set_visible(1)
-    board1 = board.Board(15,20)
-    screen = pygame.display.set_mode(((helper.getResolution()+4)*board1.width, (helper.getResolution()+4)*board1.height))
 
     #tiles = {}
     # papixel = pygame.Surface((60,60))
     # #papixel = papixel.convert()
     # papixel.fill((0, 0, 255))
+
+    f = open("map.txt")
+    tiles = {}
+    for line in f.readlines():
+        cols = line.split()
+        passable = (cols[2] == "True")
+        tiles[(int(cols[0]),int(cols[1]))] = board.Tile((int(cols[0]), int(cols[1])), passable, int(cols[3]), int(cols[4]), int(cols[5]), int(cols[6]))
+
+    print(tiles)
+    board1 = board.Board(15,20, tiles)
+
+    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,0,0,0,0,0,0,0,0,-5,-10,-15,-20,-25,-30], 0, 2)
+    wep_shotgun = soldier.Weapon("Shotgun", 4, 7, 3, [45,40,32,24,16,8,4,0,0,-4,-8,-16,-32,-40,-70,-80,-90,-100], 20, 3)
+    wep_sniper = soldier.Weapon("Sniper Rifle", 4, 6, 3, [-35,-30,-27,-24,-21,-18,-15,-12,-9,-6,-3,0,0,0,0,0,0,0,0,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10], 10, 3, True)
+
+    soldiers = []
+    soldiers.append([])
+    soldiers.append([])
+
+    for i in range(0,board1.width):
+        for j in range(0,board1.height):
+            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
+            #exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
+
+    screen = pygame.display.set_mode(((helper.getResolution()+4)*board1.width, (helper.getResolution()+4)*board1.height))
+
 
     papixel = helper.load_image('papixel.png').convert()
     transColor = papixel.get_at((0,0))
@@ -68,28 +92,14 @@ def main():
     ns.set_colorkey(transColor)
     ns = pygame.transform.scale(ns, (helper.getResolution(), helper.getResolution()))
 
-    
-    #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
-    soldiers = []
-    soldiers.append([])
-    soldiers.append([])
 
-    wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,0,0,0,0,0,0,0,0,-5,-10,-15,-20,-25,-30], 0, 2)
-    wep_shotgun = soldier.Weapon("Shotgun", 4, 7, 3, [45,40,32,24,16,8,4,0,0,-4,-8,-16,-32,-40,-70,-80,-90,-100], 20, 3)
-    wep_sniper = soldier.Weapon("Sniper Rifle", 4, 6, 3, [-35,-30,-27,-24,-21,-18,-15,-12,-9,-6,-3,0,0,0,0,0,0,0,0,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10], 10, 3, True)
+    #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
+
 
 
     # Initialize time for checking click
     x = 0
     y = 0
-
-    for i in range(0,board1.width):
-        for j in range(0,board1.height):
-            exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
-            exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
-
-
-
     renderer = Renderer.Renderer(board1,screen)
     controller = Controller.Controller()
     count = 0
@@ -101,11 +111,11 @@ def main():
     currentTile = None
     displayHover = 0
     currentSide = 0
-    
+
     dummyAI = DummyAI('noob1')
     xcomwin = 0
     alienwin = 0
-    
+
     def resetBoard():
         nonlocal board1, renderer, controller, count, srcTile, desTile, ID, currentTile \
         ,displayHover, currentSide, wep_sniper, wep_assault, wep_shotgun, soldiers
@@ -114,28 +124,28 @@ def main():
             for j in range(0,board1.height):
                 exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
                 exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
-    
+
 
         renderer = Renderer.Renderer(board1,screen)
         controller = Controller.Controller()
         count = 0
-    
+
         srcTile = None
         desTile = None
         ID = None
-    
+
         currentTile = None
         displayHover = 0
         currentSide = 0
-        
+
     try:
         while 1:
             if mode == 1:
                 event = pygame.event.wait()
-                
+
             else:
                 event = pygame.event.poll()
-            
+
             if event.type == pygame.QUIT:
                 break
             if event.type == pygame.KEYDOWN:
@@ -164,12 +174,12 @@ def main():
                 if pygame.mouse.get_pressed()[0]:
                     if ((time.time() - x) > 0.5):
                         x = time.time()
-      
+
                         #print ("You have opened a chest!")
                         count, srcTile, desTile = eventHandler.mouseButtonHandler(count, controller, board1, soldiers, currentSide, renderer, srcTile, desTile)
                         count = 0
                             #board2 = controller.makemove(board1, coord1,coord2)
-      
+
                     else:
                         print("you pressed too fast")
                         #coord = pygame.mouse.get_pos()
@@ -192,8 +202,8 @@ def main():
                         print("Alien's Turn")
                     for u in soldiers[currentSide]:
                         u.actionPoints = 2
-                
-            if mode == 2: 
+
+            if mode == 2:
                 if (srcTile == None):
                     if currentSide == 1:
                         currentSide = 0
@@ -230,7 +240,7 @@ def main():
                     print("XCOM noob, Alien win")
                     alienwin = alienwin+1
                     resetBoard()
-                
+
             pygame.display.flip()
     finally:
         pygame.quit()
