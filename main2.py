@@ -119,12 +119,21 @@ def main():
     def resetBoard():
         nonlocal board1, renderer, controller, count, srcTile, desTile, ID, currentTile \
         ,displayHover, currentSide, wep_sniper, wep_assault, wep_shotgun, soldiers
-        board1 = board.Board(15,20)
+        f = open("map.txt")
+        tiles = {}
+        for line in f.readlines():
+            cols = line.split()
+            passable = (cols[2] == "True")
+            tiles[(int(cols[0]),int(cols[1]))] = board.Tile((int(cols[0]), int(cols[1])), passable, int(cols[3]), int(cols[4]), int(cols[5]), int(cols[6]))
+
+        print(tiles)
+        board1 = board.Board(15,20, tiles)
         for i in range(0,board1.width):
             for j in range(0,board1.height):
                 exec(compile(open("soldier.txt", "rb").read(), "soldier.txt", 'exec'))
-                exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
+#                 exec(compile(open("map.txt", "rb").read(), "map.txt", 'exec'))
 
+        print ("HI!")
 
         renderer = Renderer.Renderer(board1,screen)
         controller = Controller.Controller()
@@ -229,8 +238,6 @@ def main():
                     print("XCOM's Turn")
                 for u in soldiers[currentSide]:
                     u.actionPoints = 2
-
-
             if helper.checkWinCondition(board1)==0:
                 print("XCOM wins yay")
                 xcomwin = xcomwin + 1

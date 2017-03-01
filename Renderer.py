@@ -80,16 +80,16 @@ class Renderer():
                 #pygame.draw.rect(blank, (50,140,200), (0,0,60,60), 2)
                 res = helper.getResolution()
                 if (self.board.tiles[i][j].coverN != 0):
-                    pygame.draw.line(blank, (0,355-self.board.tiles[i][j].coverN / 50 * 255, 0), (0,0), (res,0), 4)
+                    pygame.draw.line(blank, (0,255-self.board.tiles[i][j].coverN / 50 * 255, 0), (0,0), (res,0), 4)
 
                 if (self.board.tiles[i][j].coverS != 0):
-                    pygame.draw.line(blank, (0,355-self.board.tiles[i][j].coverS / 50 * 255, 0), (0,res+2), (res,res+2), 4)
+                    pygame.draw.line(blank, (0,255-self.board.tiles[i][j].coverS / 50 * 255, 0), (0,res+2), (res,res+2), 4)
 
                 if (self.board.tiles[i][j].coverW != 0):
-                    pygame.draw.line(blank, (0,355-self.board.tiles[i][j].coverW / 50 * 255, 0), (0,0), (0,res+2), 4)
+                    pygame.draw.line(blank, (0,255-self.board.tiles[i][j].coverW / 50 * 255, 0), (0,0), (0,res+2), 4)
 
                 if (self.board.tiles[i][j].coverE != 0):
-                    pygame.draw.line(blank, (0,355-self.board.tiles[i][j].coverE / 50 * 255, 0), (res+2,0), (res+2,res), 4)
+                    pygame.draw.line(blank, (0,255-self.board.tiles[i][j].coverE / 50 * 255, 0), (res+2,0), (res+2,res), 4)
 
 
         #self.coverN = coverN
