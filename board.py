@@ -89,7 +89,8 @@ class Board:
                 return max(target.coverE, target.coverN)
             else:
                 return target.coverE
-
+        
+        return 0
     # fill a tile's neighbors list
     # impassable tiles are not counted, as are tiles separated by cover value larger than 50
     def fillNeighbors(self, tile):
