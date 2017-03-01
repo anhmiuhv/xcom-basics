@@ -83,6 +83,18 @@ def buttonActionHander(event, controller, srcTile ,renderer, board1, desTile):
             ID = None
             count = 0
             renderer.render(board1)
+    if event.key == pygame.K_ESCAPE or event.unicode == '0':
+        if 0 in controller.possibleAction(srcTile):
+            print ("do nothing")
+            ID = 0
+            desTile = board.Tile((100,100))
+            print(controller.performAction(board1, srcTile, desTile, ID))
+            desTile = None
+            srcTile = None
+            ID = None
+            count = 0
+            renderer.render(board1)
+
     #    possibleTiles = controller.possibleTiles(board1, srcTile, ID)
     #renderer.renderPossibleTiles(possibleTiles)
     return count, ID, srcTile, desTile

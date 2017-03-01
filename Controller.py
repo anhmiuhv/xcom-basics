@@ -32,6 +32,7 @@ class Controller:
         coord1.append(int(math.floor(mouse[1]/(helper.getResolution()+4))))
         return board.tiles[coord1[0]][coord1[1]]
 
+    # id = 0: do nothing (turn-ending)
     # id = 1: move (1 action)
     # id = 2: dash (2 actions)
     # id = 3: shoot (1 action, turn-ending)
@@ -41,6 +42,7 @@ class Controller:
         # can't act if dead or no moves left
         if srcTile.unit.health <= 0 or srcTile.unit.actionPoints <= 0:
             return l
+        l.append(0)
         l.append(1)
         if srcTile.unit.actionPoints == 2:
             l.append(2)
@@ -69,7 +71,7 @@ class Controller:
                 for t in board.tiles[i]:
                     if t.unit != None and t.unit.side != srcTile.unit.side:
                         l.append(t)
-        if ID == 4:
+        if ID == 4 or ID == 0:
             l.append(srcTile)
         return l
 
@@ -83,7 +85,7 @@ class Controller:
         for tile in possibleTiles:
             if (tile.coords == desTile.coords):
                 action = True
-        if ID == 4:
+        if ID == 4 or ID == 0:
             action = True
         if action:
             if ID == 1 or ID == 2:
@@ -153,6 +155,9 @@ class Controller:
                 srcTile.unit.actionPoints -= 1
                 srcTile.unit.weapon.ammo = srcTile.unit.weapon.magSize
                 msg = "Weapon reloaded."
+            if ID == 0:
+                srcTile.unit.actionPoints = 0
+                msg = "Done nothing."
 
         else:
             msg = "You click on the wrong tile you noob!"

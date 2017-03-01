@@ -216,29 +216,29 @@ def main():
                 desTile = None
                 ID = None
                 renderer.render(board1)
-                switch = True
+            switch = True
+            for u in soldiers[currentSide]:
+                if u.actionPoints > 0 and u.health > 0:
+                    switch = False
+            if switch:
+                if currentSide == 0:
+                    currentSide = 1
+                    print("Alien Activity")
+                else:
+                    currentSide = 0
+                    print("XCOM's Turn")
                 for u in soldiers[currentSide]:
-                    if u.actionPoints > 0 and u.health > 0:
-                        switch = False
-                if switch:
-                    if currentSide == 0:
-                        currentSide = 1
-                        print("Alien Activity")
-                    else:
-                        currentSide = 0
-                        print("XCOM's Turn")
-                    for u in soldiers[currentSide]:
-                        u.actionPoints = 2
+                    u.actionPoints = 2
 
 
-                if helper.checkWinCondition(board1)==0:
-                    print("XCOM wins yay")
-                    xcomwin = xcomwin + 1
-                    resetBoard()
-                elif helper.checkWinCondition(board1)==1:
-                    print("XCOM noob, Alien win")
-                    alienwin = alienwin+1
-                    resetBoard()
+            if helper.checkWinCondition(board1)==0:
+                print("XCOM wins yay")
+                xcomwin = xcomwin + 1
+                resetBoard()
+            elif helper.checkWinCondition(board1)==1:
+                print("XCOM noob, Alien win")
+                alienwin = alienwin+1
+                resetBoard()
 
             pygame.display.flip()
     finally:
