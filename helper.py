@@ -60,4 +60,7 @@ def tryToGetToTile(listTile, tile):
         newscore = tile.coords[0]-dummytile.coords[0] + tile.coords[1]-dummytile.coords[1]
         if (newscore < bestScore):
             bestTile = dummytile
+            
+    print(tile.coords)
+    print(bestTile.coords)
     return bestTile
