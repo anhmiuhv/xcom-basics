@@ -163,3 +163,29 @@ class Controller:
             msg = "You click on the wrong tile you noob!"
         return msg
 
+
+    def dangerScore(self, board, tile, srcTile, defunit):
+        hitChance = srcTile.unit.aim - defunit.defense
+        critChance = srcTile.unit.weapon.critChance
+        dodgeChance = defunit.dodge
+        cover = board.coverValue(srcTile, tile)
+        if (cover <= 0): # flanking gets a 40% bonus to crit chance
+            critChance += 40
+        else: # if not flanking then aiming chance reduced by cover
+            hitChance -= cover
+        # range modifiers; weapons do better at close range and worse faraway
+        dis = int(board.straightDistance(srcTile, tile))
+        if dis >= len(srcTile.unit.weapon.rangeMod):
+            dis = len(srcTile.unit.weapon.rangeMod) - 1
+        hitChance += srcTile.unit.weapon.rangeMod[dis]
+        # RNGESUS COMETH
+        # Long War 2 calculation for maximum RNGesus
+        # 0 = miss, 1 = graze (50% damage), 2 = hit, 3 = crit
+       
+        damage = (srcTile.unit.weapon.minDamage + srcTile.unit.weapon.maxDamage) / 2 * hitChance / 100
+            
+        damage += srcTile.unit.weapon.critDamage * critChance / 100
+        damage -= damage * dodgeChance / 100
+        return damage
+        
+                
