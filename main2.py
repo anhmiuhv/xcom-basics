@@ -111,6 +111,9 @@ def main():
         displayHover = 0
         currentSide = 0
         
+    for i in dummyAI.shootMap(board1, soldiers, currentSide, soldiers[currentSide][0]) :
+        print(i)
+        
     try:
         while 1:
             event = pygame.event.poll()
@@ -122,20 +125,20 @@ def main():
                     print("XCOM wins: " + str(xcomwin))
                     print("ALIENS wins: " + str(alienwin))
                     break
-
-            if currentSide == 0:
-                dummyAI.randexecution(board1,soldiers,currentSide)
-                srcTile = dummyAI.srcTile
-                desTile = dummyAI.desTile
-                ID = dummyAI.ID
-            
-            if currentSide == 1:
-                dummyAI.randexecution(board1,soldiers,currentSide)
-                srcTile = dummyAI.srcTile
-                desTile = dummyAI.desTile
-                ID = dummyAI.ID
-                
-
+ 
+#             if currentSide == 0:
+#                 dummyAI.randexecution(board1,soldiers,currentSide)
+#                 srcTile = dummyAI.srcTile
+#                 desTile = dummyAI.desTile
+#                 ID = dummyAI.ID
+#              
+#             if currentSide == 1:
+#                 dummyAI.randexecution(board1,soldiers,currentSide)
+#                 srcTile = dummyAI.srcTile
+#                 desTile = dummyAI.desTile
+#                 ID = dummyAI.ID
+                 
+ 
             if (srcTile == None):
                 if currentSide == 1:
                     currentSide = 0
@@ -145,7 +148,7 @@ def main():
                     print("Alien's Turn")
                 for u in soldiers[currentSide]:
                     u.actionPoints = 2
-                
+                 
             if (srcTile != None) and (desTile != None) and (ID != None):
                 #print("action perform")
                 print(controller.performAction(board1, srcTile, desTile, ID))
@@ -166,8 +169,8 @@ def main():
                         print("XCOM's Turn")
                     for u in soldiers[currentSide]:
                         u.actionPoints = 2
-
-
+ 
+ 
                 if helper.checkWinCondition(board1)==0:
                     print("XCOM wins yay")
                     xcomwin = xcomwin + 1
@@ -176,7 +179,7 @@ def main():
                     print("XCOM noob, Alien win")
                     alienwin = alienwin+1
                     resetBoard()
-                
+                 
             pygame.display.flip()
     finally:
         pygame.quit()

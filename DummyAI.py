@@ -48,7 +48,7 @@ class DummyAI:
         else:
             self.desTile = None
     
-    def utilityBoard(self, board, soldiers, side, thesoldier):
+    def dangerBoard(self, board, soldiers, side, thesoldier):
         utilityB =[]
         otherside = []
         thisside = []
@@ -57,18 +57,51 @@ class DummyAI:
             utilityB.append([])
             for j in range(0,board.height):
                 utilityB[i].append(0)
+                if not board.tiles[i][j].passable:
+                    utilityB[i][j] = 1000000
+                    continue
                 if (board.tiles[i][j].unit != None): 
                     if (board.tiles[i][j].unit.side != side):
                         otherside.append(board.tiles[i][j])
                     else:
                         thisside.append(board.tiles[i][j])
                     if board.tiles[i][j].unit != thesoldier:
-                        utilityB[i].append(1000000)
+                        utilityB[i][j] = 1000000
 
         for g in otherside:
             for i in range(0,board.width):
                 for j in range(0,board.height):
                     utilityB[i][j] += self.controller.dangerScore(board, board.tiles[i][j], g, thesoldier)
+                    
+        return utilityB
+    
+    def shootMap(self, board, soldiers, side, thesoldier):
+        utilityB =[]
+        otherside = []
+        thisside = []
+        
+        #find position of units from the other side
+        for i in range(0,board.width):
+            utilityB.append([])
+            for j in range(0,board.height):
+                utilityB[i].append(0)
+                if not board.tiles[i][j].passable:
+                    utilityB[i][j] = 1000000
+                    continue
+                if (board.tiles[i][j].unit != None): 
+                    if (board.tiles[i][j].unit.side != side):
+                        otherside.append(board.tiles[i][j])
+                    else:
+                        thisside.append(board.tiles[i][j])
+                    if board.tiles[i][j].unit != thesoldier:
+                        utilityB[i][j] = 1000000
+                    else:
+                        thesoldiertile = board.tiles[i][j]
+
+        for g in otherside:
+            for i in range(0,board.width):
+                for j in range(0,board.height):
+                    utilityB[i][j] -= self.controller.dangerScore(board, board.tiles[i][j], thesoldiertile, g.unit)
                     
         return utilityB
                 

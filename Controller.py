@@ -180,6 +180,6 @@ class Controller:
             
         damage += srcTile.unit.weapon.critDamage * critChance / 100
         damage -= damage * dodgeChance / 100
-        return damge
+        return damage
         
                 
