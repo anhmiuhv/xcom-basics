@@ -77,16 +77,20 @@ class DummyAI:
             self.srcTile = None
         
         if self.srcTile != None:
-            if not self.srcTile.hasCover:
-                self.ID = randint(1,2)
-                if self.srcTile.unit.actionPoints == 1:
-                    self.ID = 1
-            else:
+#             testList = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
+#             if testList[self.srcTile.coords[0]][self.srcTile.coords[1]] > helper.findMinTile(testList)[1]:
+#                 self.ID = randint(1,2)
+#                 if (self.ID == 2) and (self.srcTile.unit.actionPoints < 2):
+#                     self.ID = 1
+#             else: 
+#                 self.ID = 3
+#                 if self.srcTile.unit.weapon.ammo == 0:
+#                     self.ID = 4
+            self.ID = randint(1,4)
+
+            while ((self.ID == 2) and (self.srcTile.unit != None) and (self.srcTile.unit.actionPoints == 1)):
+    #         while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
                 self.ID = randint(3,4)
-                
-#                 while ((self.ID == 2) and (self.srcTile.unit != None) and (self.srcTile.unit.actionPoints == 1)):
-#         #         while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
-#                     self.ID = randint(3,4)
             
             
         if self.srcTile != None:
@@ -137,18 +141,17 @@ class DummyAI:
             possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
             
             action = False
+            
             for tile in possibleDesTile:
                 if (tile.coords == self.desTile.coords):
                         action = True
             
             if action == False:
                 if side == 1:
-#                 if self.srcTile.unit.weapon.name == 'Shotgun':
+# #                 if self.srcTile.unit.weapon.name == 'Shotgun':
                     if self.ID == 1 or self.ID == 2:
-                        self.desTile = helper.tryToGetToTile(possibleDesTile,board.tiles[mincoord[0][0]][mincoord[0][1]])
-                    else:
-                        self.desTile = None
-                
+                        self.desTile = helper.tryToGetToTile(possibleDesTile,self.desTile)
+    
         else:
             self.desTile = None
 #                 if check == 1:
