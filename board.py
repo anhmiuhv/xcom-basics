@@ -46,6 +46,9 @@ class Tile:
 
     def __hash__(self):
         return self.coords[0] * 1000 + self.coords[1]
+    
+    def hasCover(self):
+        return self.coverE or self.coverN or self.coverS or self.coverW
 
 # xy coordinates start from the top left of the window
 class Board:

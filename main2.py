@@ -110,10 +110,15 @@ def main():
         currentTile = None
         displayHover = 0
         currentSide = 0
-        
-    for i in dummyAI.shootMap(board1, soldiers, currentSide, soldiers[currentSide][0]) :
-        print(i)
-        
+    
+    testList = dummyAI.dangerBoard(board1, soldiers, currentSide, soldiers[currentSide][0])
+    for i in range(0,board1.width):
+        for j in range(0,board1.height):
+            print("%8.2f " % testList[i][j], end = "")
+    
+    mincoord = helper.findMinTile(testList)
+    print(mincoord)
+    print(testList[mincoord[0]][mincoord[1]])
     try:
         while 1:
             event = pygame.event.poll()
@@ -126,26 +131,26 @@ def main():
                     print("ALIENS wins: " + str(alienwin))
                     break
  
-#             if currentSide == 0:
-#                 dummyAI.randexecution(board1,soldiers,currentSide)
-#                 srcTile = dummyAI.srcTile
-#                 desTile = dummyAI.desTile
-#                 ID = dummyAI.ID
-#              
-#             if currentSide == 1:
-#                 dummyAI.randexecution(board1,soldiers,currentSide)
-#                 srcTile = dummyAI.srcTile
-#                 desTile = dummyAI.desTile
-#                 ID = dummyAI.ID
+            if currentSide == 0:
+                dummyAI.improvedRandomExecution(board1,soldiers,currentSide)
+                srcTile = dummyAI.srcTile
+                desTile = dummyAI.desTile
+                ID = dummyAI.ID
+              
+            if currentSide == 1:
+                dummyAI.randexecution(board1,soldiers,currentSide)
+                srcTile = dummyAI.srcTile
+                desTile = dummyAI.desTile
+                ID = dummyAI.ID
                  
  
             if (srcTile == None):
                 if currentSide == 1:
                     currentSide = 0
-                    print("XCOM's Turn")
+                    #print("XCOM's Turn")
                 else:
                     currentSide = 1
-                    print("Alien's Turn")
+                    #print("Alien's Turn")
                 for u in soldiers[currentSide]:
                     u.actionPoints = 2
                  

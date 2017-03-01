@@ -41,3 +41,14 @@ def checkWinCondition(board):
     else:
         whowin = 4
     return whowin
+
+def findMinTile(utiList):
+    min = utiList[0][0]
+    minTile = (0,0)
+    for i in range(0,len(utiList)):
+        for j in range(0,len(utiList[0])):
+            if utiList[i][j] <= min:
+                min = utiList[i][j]
+                minTile = (i,j)
+    
+    return minTile
