@@ -16,6 +16,7 @@ class Soldier:
         self.weapon = weapon
         self.coords = coords
         self.health = health
+        self.maxhealth = health
         self.mobility = mobility
         self.aim = aim
         self.defense = defense
@@ -25,3 +26,9 @@ class Soldier:
 
     def set_image(self, image):
         self.image = image
+        
+    def isDying(self):
+        return self.health / self.maxhealth < 0.3
+    
+    def __eq__(self, a):
+        return self.name == a.name

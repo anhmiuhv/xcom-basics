@@ -124,13 +124,13 @@ def main():
 
 
             if currentSide == 0:
-                dummyAI.execution(board1,soldiers,currentSide)
+                dummyAI.randexecution(board1,soldiers,currentSide)
                 srcTile = dummyAI.srcTile
                 desTile = dummyAI.desTile
                 ID = dummyAI.ID
             
             if currentSide == 1:
-                dummyAI.execution(board1,soldiers,currentSide)
+                dummyAI.randexecution(board1,soldiers,currentSide)
                 srcTile = dummyAI.srcTile
                 desTile = dummyAI.desTile
                 ID = dummyAI.ID
