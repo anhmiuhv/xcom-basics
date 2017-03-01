@@ -1,0 +1,39 @@
+## Immpassable Terrain at the top and bottom left of the map. 
+
+if (i == 0) and ((j==0) or (j==1) or (j==2) or (j==14) or (j==13) or (j==12)):
+	board1.tiles[i][j].passable = False
+
+
+## Nest at the top right of the map
+
+if ((i == 3) or (i==4) or (i==5)) and (j==3):
+	board1.tiles[i][j].passable = False
+
+#if (i==5) and ((j==2) or (j==1) or (j==0)):
+#	board1.tiles[i][j].passable = False
+
+if (i==5) and ((j==2) or (j==1) or (j==0)):
+    board1.tiles[i][j].coverW = 10
+
+if ((i == 3) or (i==4)) and (j==2):
+	board1.tiles[i][j].coverS = 10
+
+
+
+
+## 2x3 block in the center of the map
+if ((i==8) or (i==9)) and ((j==7) or (j==8) or (j==9)):
+	board1.tiles[i][j].passable = False
+
+if ((i==7) and ((j==7) or (j==8) or (j==9))):
+	board1.tiles[i][j].coverE = 10
+
+if ((i==10) and ((j==7) or (j==8) or (j==9))):
+	board1.tiles[i][j].coverW = 10
+
+if ((i==8) or (i==9)) and (j==6):
+	board1.tiles[i][j].coverS = 10
+
+if ((i==8) or (i==9)) and (j==10):
+	board1.tiles[i][j].coverN = 10
+
