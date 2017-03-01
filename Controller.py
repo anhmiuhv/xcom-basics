@@ -181,5 +181,29 @@ class Controller:
         damage += srcTile.unit.weapon.critDamage * critChance / 100
         damage -= damage * dodgeChance / 100
         return damage
-        
+
+    
+    def damageScore(self, board, tile, soldier, defunittile):
+        hitChance = soldier.aim - defunittile.unit.defense
+        critChance = soldier.weapon.critChance
+        dodgeChance = defunittile.unit.dodge
+        cover = board.coverValue(tile, defunittile)
+        if (cover <= 0): # flanking gets a 40% bonus to crit chance
+            critChance += 40
+        else: # if not flanking then aiming chance reduced by cover
+            hitChance -= cover
+        # range modifiers; weapons do better at close range and worse faraway
+        dis = int(board.straightDistance(defunittile, tile))
+        if dis >= len(soldier.weapon.rangeMod):
+            dis = len(soldier.weapon.rangeMod) - 1
+        hitChance += soldier.weapon.rangeMod[dis]
+        # RNGESUS COMETH
+        # Long War 2 calculation for maximum RNGesus
+        # 0 = miss, 1 = graze (50% damage), 2 = hit, 3 = crit
+       
+        damage = (soldier.weapon.minDamage + soldier.weapon.maxDamage) / 2 * hitChance / 100
+            
+        damage += soldier.weapon.critDamage * critChance / 100
+        damage -= damage * dodgeChance / 100
+        return damage
                 
