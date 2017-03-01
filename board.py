@@ -62,6 +62,19 @@ class Board:
                 else:
                     self.tiles[x].append(Tile((x,y)))
 
+        for x in range(0, width):
+            for y in range(0, height):
+                if (x != 0) and self.tiles[x][y].coverW > 0:
+                    self.tiles[x-1][y].coverE = self.tiles[x][y].coverW
+                if (x != width-1) and self.tiles[x][y].coverE > 0:
+                    self.tiles[x+1][y].coverW = self.tiles[x][y].coverE
+                if (y != 0) and self.tiles[x][y].coverN > 0:
+                    self.tiles[x][y-1].coverS = self.tiles[x][y].coverN
+                if (y != height-1) and self.tiles[x][y].coverS > 0:
+                    self.tiles[x][y+1].coverN = self.tiles[x][y].coverS
+
+
+
 
     # return the cover value of a "target" tile if it's being shot at by the "start" tile
     # if there are two cover values, always use the higher one
@@ -90,6 +103,7 @@ class Board:
             else:
                 return target.coverE
 
+        return 0
     # fill a tile's neighbors list
     # impassable tiles are not counted, as are tiles separated by cover value larger than 50
     def fillNeighbors(self, tile):
