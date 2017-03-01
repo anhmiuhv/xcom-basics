@@ -7,25 +7,25 @@ def hoverDisplay(displayHover, currentTile, currentSide, myfont, renderer, count
     else:
         if displayHover == 2:
             displayHover = 0
-    
+
     if displayHover == 1:
         print ("mouse is over 'unit'")
         renderer.renderHover(currentTile,myfont)
         displayHover = 2
         print(currentSide)
-    
+
     elif(displayHover == 0):
         print("mouse is not on unit anymore")
         if count == 0:
             renderer.render(board1)
             displayHover = 3
             print(currentSide)
-    
+
     return displayHover
 
 def mouseButtonHandler(count, controller, board1, soldiers, currentSide, renderer, srcTile, desTile):
     if (count == 0):
- 
+
         coord1 = pygame.mouse.get_pos()
         srcTile = controller.getTile(board1, coord1)
 
@@ -44,10 +44,13 @@ def mouseButtonHandler(count, controller, board1, soldiers, currentSide, rendere
         desTile = controller.getTile(board1, coord2)
 
         count = 0
-    
+
     return count, srcTile, desTile
 
 def buttonActionHander(event, controller, srcTile ,renderer, board1, desTile):
+    possibleTiles = []
+    count = 1
+    ID = None
     if event.key == pygame.K_ESCAPE or event.unicode == '1':
         if 1 in controller.possibleAction(srcTile):
             print("move")
@@ -80,8 +83,8 @@ def buttonActionHander(event, controller, srcTile ,renderer, board1, desTile):
             ID = None
             count = 0
             renderer.render(board1)
-        possibleTiles = controller.possibleTiles(board1, srcTile, ID)
-    renderer.renderPossibleTiles(possibleTiles)
+    #    possibleTiles = controller.possibleTiles(board1, srcTile, ID)
+    #renderer.renderPossibleTiles(possibleTiles)
     return count, ID, srcTile, desTile
-    
+
 
