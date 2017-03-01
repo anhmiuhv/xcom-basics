@@ -117,8 +117,8 @@ def main():
             print("%8.2f " % testList[i][j], end = "")
     
     mincoord = helper.findMinTile(testList)
-    print(mincoord)
-    print(testList[mincoord[0]][mincoord[1]])
+    print(mincoord[0])
+    print(mincoord[1])
     try:
         while 1:
             event = pygame.event.poll()
@@ -147,10 +147,10 @@ def main():
             if (srcTile == None):
                 if currentSide == 1:
                     currentSide = 0
-                    #print("XCOM's Turn")
+                    print("XCOM's Turn")
                 else:
                     currentSide = 1
-                    #print("Alien's Turn")
+                    print("Alien's Turn")
                 for u in soldiers[currentSide]:
                     u.actionPoints = 2
                  

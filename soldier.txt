@@ -1,24 +1,24 @@
 if (i==0)&(j==4):
-    unit1 = soldier.Soldier("Julian", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
     testtile = board1.tiles[i][j]
 
 elif (i==0)&(j==6):
-    unit1 = soldier.Soldier("Julian2", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian2", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
 
 elif (i==0)&(j==8):
-    unit1 = soldier.Soldier("Julian3", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian3", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
 
 elif (i==0)&(j==10):
-    unit1 = soldier.Soldier("Julian4", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian4", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
@@ -27,37 +27,37 @@ elif (i==0)&(j==10):
 
 
 elif (i==19)&(j==1):
-    unit2 = soldier.Soldier("Lalala", copy.copy(wep_shotgun), (i,j), side = 1)
+    unit2 = soldier.Soldier("Lalala", copy.copy(wep_assault), (i,j), side = 1)
     unit2.set_image("ns")
     board1.tiles[i][j].unit = unit2
     soldiers[1].append(unit2)
 
 elif (i==19)&(j==3):
-    unit2 = soldier.Soldier("Lalala2", copy.copy(wep_shotgun), (i,j), side = 1)
+    unit2 = soldier.Soldier("Lalala2", copy.copy(wep_assault), (i,j), side = 1)
     unit2.set_image("ns")
     board1.tiles[i][j].unit = unit2
     soldiers[1].append(unit2)
 
 elif (i==19)&(j==5):
-    unit2 = soldier.Soldier("Lalala3", copy.copy(wep_shotgun), (i,j), side = 1)
+    unit2 = soldier.Soldier("Lalala3", copy.copy(wep_assault), (i,j), side = 1)
     unit2.set_image("ns")
     board1.tiles[i][j].unit = unit2
     soldiers[1].append(unit2)
 
 elif (i==19)&(j==9):
-    unit2 = soldier.Soldier("Lalala4", copy.copy(wep_shotgun), (i,j), side = 1)
+    unit2 = soldier.Soldier("Lalala4", copy.copy(wep_assault), (i,j), side = 1)
     unit2.set_image("ns")
     board1.tiles[i][j].unit = unit2
     soldiers[1].append(unit2)
 
 elif (i==19)&(j==11):
-    unit2 = soldier.Soldier("Lalala5", copy.copy(wep_shotgun), (i,j), side = 1)
+    unit2 = soldier.Soldier("Lalala5", copy.copy(wep_assault), (i,j), side = 1)
     unit2.set_image("ns")
     board1.tiles[i][j].unit = unit2
     soldiers[1].append(unit2)
 
 elif (i==19)&(j==13):
-    unit2 = soldier.Soldier("Lalala6", copy.copy(wep_shotgun), (i,j), side = 1)
+    unit2 = soldier.Soldier("Lalala6", copy.copy(wep_assault), (i,j), side = 1)
     unit2.set_image("ns")
     board1.tiles[i][j].unit = unit2
     soldiers[1].append(unit2)
