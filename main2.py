@@ -111,7 +111,7 @@ def main():
         displayHover = 0
         currentSide = 0
     
-    testList = dummyAI.dangerBoard(board1, soldiers, currentSide, soldiers[currentSide][0])
+    testList = dummyAI.shootMap(board1, soldiers, currentSide, soldiers[currentSide][0])
     for i in range(0,board1.width):
         for j in range(0,board1.height):
             print("%8.2f " % testList[i][j], end = "")

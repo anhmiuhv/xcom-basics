@@ -79,6 +79,7 @@ class DummyAI:
         
         
         self.ID = randint(1,4)
+        
         if self.srcTile != None:
             while ((self.ID == 2) and (self.srcTile.unit != None) and (self.srcTile.unit.actionPoints == 1)):
     #         while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
@@ -108,14 +109,24 @@ class DummyAI:
 #             else:
 #                 self.ID = randint(3,4)
             if self.ID ==1 or self.ID ==2:
-                testList = self.dangerBoard(board, soldiers, side, soldiers[side][0])
+                #print("jajajajajaja")
+                testList = []
+                if (self.srcTile.unit.weapon.name == 'Assault Rifle') or (self.srcTile.unit.weapon.name == 'Sniper Rifle'):
+                    testList = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
+                    #print("jajajajajaja")
+                else:
+                    testList = self.shootMap(board, soldiers, side, self.srcTile.unit)
+                    print("jajjaja")
+                
                 mincoord = helper.findMinTile(testList)
                 possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
 #                 for i in range (0,len(possibleDesTile)):
 #                     if board.tiles[mincoord[0]][mincoord[1]] == possibleDesTile[i]:
                 self.desTile = board.tiles[mincoord[0]][mincoord[1]]
                 check = 0
+                
             possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
+            
             action = False
             for tile in possibleDesTile:
                 if (tile.coords == self.desTile.coords):
@@ -123,6 +134,7 @@ class DummyAI:
             
             if action == False: 
                 self.desTile = None
+                
         else:
             self.desTile = None
 #                 if check == 1:
@@ -190,7 +202,7 @@ class DummyAI:
         for g in otherside:
             for i in range(0,board.width):
                 for j in range(0,board.height):
-                    utilityB[i][j] -= self.controller.dangerScore(board, board.tiles[i][j], thesoldiertile, g.unit)
+                    utilityB[i][j] -= self.controller.dangerScore(board, board.tiles[i][j], g, g.unit)
                     
         return utilityB
                 
