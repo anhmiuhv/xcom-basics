@@ -127,7 +127,7 @@ class DummyAI:
 #                     else: 
 #                         mincoord = mincoord2
 #                         print("aggressive over safe")
-                    mincoord = mincoord1
+                    mincoord = mincoord2
                     self.desTile = board.tiles[mincoord[0][0]][mincoord[0][1]]
                 #mincoord = helper.findMinTile(testList)
                 #possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
