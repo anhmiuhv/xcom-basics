@@ -11,7 +11,7 @@ class Weapon:
         self.heavy = heavy
 
 class Soldier:
-    def __init__(self, name, weapon, coords=(0,0), mobility = 4, health = 5, aim = 65, defense = 0, dodge = 10, side = 0):
+    def __init__(self, name, weapon, coords=(0,0), mobility = 5, health = 5, aim = 65, defense = 0, dodge = 10, side = 0):
         self.name = name
         self.weapon = weapon
         self.coords = coords
@@ -26,10 +26,10 @@ class Soldier:
 
     def set_image(self, image):
         self.image = image
-        
+
     def isDying(self):
         return self.health / self.maxhealth < 0.3
-     
+
     def __eq__(self, a):
         if a == None:
             return False
