@@ -36,7 +36,7 @@ if args.mode == "eve":
 
 if args.levelOfAI == "noob":
     level = 0
-if args.levelOfAI == "god level":
+if args.levelOfAI == "godlevel":
     level = 1
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
