@@ -185,7 +185,7 @@ def main():
                 currentTile = controller.getTile(board1, coord2)
                 displayHover = eventHandler.hoverDisplay(displayHover, currentTile, currentSide, myfont, renderer, count, board1)
 
-            if mode == 3 and level == 1:
+            if mode == 3:
                 if level == 1:
                     if currentSide == 0:
                         dummyAI.improvedRandomExecution(board1,soldiers,currentSide)
@@ -198,6 +198,7 @@ def main():
                         srcTile = dummyAI.srcTile
                         desTile = dummyAI.desTile
                         ID = dummyAI.ID
+                        
             if (mode == 2 or mode == 3):
                 if level == 1:
                     if currentSide == 1:
@@ -211,6 +212,7 @@ def main():
                         srcTile = dummyAI.srcTile
                         desTile = dummyAI.desTile
                         ID = dummyAI.ID
+                        
             if mode == 1 or mode == 2:
                 if pygame.mouse.get_pressed()[0]:
                     if ((time.time() - x) > 0.5):
@@ -237,11 +239,14 @@ def main():
                     if currentSide == 1:
                         currentSide = 0
                         print("XCOM's Turn")
+                        for u in soldiers[currentSide]:
+                            u.actionPoints = 2
                     else:
                         currentSide = 1
                         print("Alien's Turn")
-                    for u in soldiers[currentSide]:
-                        u.actionPoints = 2
+                        
+                        for u in soldiers[currentSide]:
+                            u.actionPoints = 2
 
             if mode == 2:
                 if (srcTile == None):
