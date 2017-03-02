@@ -21,6 +21,7 @@ import argparse
 #parsing option from users
 parser = argparse.ArgumentParser(description=' in aliens we trust')
 parser.add_argument('mode',choices=['pvp','pve', 'eve'], help='The type of mode to run:')
+parser.add_argument('levelOfAI',choices=['noob','god level'], help='The type of mode to run:')
 args = parser.parse_args()
 mode = 0
 
@@ -32,6 +33,11 @@ if args.mode == "pve":
 
 if args.mode == "eve":
     mode = 3
+
+if args.levelOfAI == "noob":
+    level = 0
+if args.levelOfAI == "god level":
+    level = 1
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
     raise SystemExit("Sorry, extended image module required")
@@ -126,7 +132,7 @@ def main():
             passable = (cols[2] == "True")
             tiles[(int(cols[0]),int(cols[1]))] = board.Tile((int(cols[0]), int(cols[1])), passable, int(cols[3]), int(cols[4]), int(cols[5]), int(cols[6]))
 
-        print(tiles)
+        #print(tiles)
         board1 = board.Board(15,20, tiles)
         for i in range(0,board1.width):
             for j in range(0,board1.height):
@@ -179,18 +185,32 @@ def main():
                 currentTile = controller.getTile(board1, coord2)
                 displayHover = eventHandler.hoverDisplay(displayHover, currentTile, currentSide, myfont, renderer, count, board1)
 
-            if mode == 3:
-                if currentSide == 0:
-                    dummyAI.improvedRandomExecution(board1,soldiers,currentSide)
-                    srcTile = dummyAI.srcTile
-                    desTile = dummyAI.desTile
-                    ID = dummyAI.ID
-            if mode == 2 or mode == 3:
-                if currentSide == 1:
-                    dummyAI.execution(board1,soldiers,currentSide)
-                    srcTile = dummyAI.srcTile
-                    desTile = dummyAI.desTile
-                    ID = dummyAI.ID
+            if mode == 3 and level == 1:
+                if level == 1:
+                    if currentSide == 0:
+                        dummyAI.improvedRandomExecution(board1,soldiers,currentSide)
+                        srcTile = dummyAI.srcTile
+                        desTile = dummyAI.desTile
+                        ID = dummyAI.ID
+                else:
+                    if currentSide == 0:
+                        dummyAI.execution(board1,soldiers,currentSide)
+                        srcTile = dummyAI.srcTile
+                        desTile = dummyAI.desTile
+                        ID = dummyAI.ID
+            if (mode == 2 or mode == 3):
+                if level == 1:
+                    if currentSide == 1:
+                        dummyAI.improvedRandomExecution(board1,soldiers,currentSide)
+                        srcTile = dummyAI.srcTile
+                        desTile = dummyAI.desTile
+                        ID = dummyAI.ID
+                else:
+                    if currentSide == 1:
+                        dummyAI.execution(board1,soldiers,currentSide)
+                        srcTile = dummyAI.srcTile
+                        desTile = dummyAI.desTile
+                        ID = dummyAI.ID
             if mode == 1 or mode == 2:
                 if pygame.mouse.get_pressed()[0]:
                     if ((time.time() - x) > 0.5):

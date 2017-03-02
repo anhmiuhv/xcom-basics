@@ -188,7 +188,7 @@ class Controller:
         damage -= damage * dodgeChance / 100
         if cover >=40:
             damage -= 100
-        print(cover)
+        
         return damage
         
     def damageScore(self, board, tile, soldier, defunittile):

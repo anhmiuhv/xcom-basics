@@ -65,7 +65,7 @@ class DummyAI:
         else:
             self.srcTile = None
         
-        if self.srcTile != None:
+
 #             testList = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
 #             if testList[self.srcTile.coords[0]][self.srcTile.coords[1]] > helper.findMinTile(testList)[1]:
 #                 self.ID = randint(1,2)
@@ -75,32 +75,22 @@ class DummyAI:
 #                 self.ID = 3
 #                 if self.srcTile.unit.weapon.ammo == 0:
 #                     self.ID = 4
-            self.ID = randint(1,4)
-
+            
+        
+        if self.srcTile != None:  
+            print(self.srcTile.hasCover())
+              
+            if self.srcTile.unit.weapon.ammo == 0:
+                self.ID = 4
+            
+            elif self.srcTile.hasCover() < 10:
+                self.ID = 1
+            else:
+                self.ID = randint(1,3)
+            
             while ((self.ID == 2) and (self.srcTile.unit != None) and (self.srcTile.unit.actionPoints == 1)):
     #         while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
-                self.ID = randint(3,4)
-            
-            
-        if self.srcTile != None:
-            possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
-            if (len(possibleDesTile)) > 1:
-                randomDesNum = randint(0,len(possibleDesTile)-1)
-                self.desTile = possibleDesTile[randomDesNum]
-            elif(len(possibleDesTile) == 1):
-                randomDesNum = 0
-                self.desTile = possibleDesTile[randomDesNum]
-            else:
-                self.desTile = None
-                 
-            self.desTile = possibleDesTile[randomDesNum]
-        else:
-            self.desTile = None
-            
-        check = 1
-        
-        if self.srcTile != None:    
-                
+                self.ID = 3
             if self.ID ==1 or self.ID ==2:
                 testList = []
                 if (self.srcTile.unit.weapon.name == 'Assault Rifle') or (self.srcTile.unit.weapon.name == 'Sniper Rifle'):
@@ -121,21 +111,35 @@ class DummyAI:
                     testList2 = self.shootMap(board, soldiers, side, self.srcTile.unit)
                     mincoord1 = helper.findMinTile(testList1,coords)
                     mincoord2 = helper.findMinTile(testList2,coords)
-#                     if mincoord1[1] < mincoord2[1]:
-#                         mincoord = mincoord1
-#                         print("safe over aggressive")
-#                     else: 
-#                         mincoord = mincoord2
-#                         print("aggressive over safe")
-                    mincoord = mincoord2
+                    if mincoord1[1] < mincoord2[1]:
+                        mincoord = mincoord1
+                        print("safe over aggressive")
+                    else: 
+                        mincoord = mincoord2
+                        print("aggressive over safe")
+                    
                     self.desTile = board.tiles[mincoord[0][0]][mincoord[0][1]]
                 #mincoord = helper.findMinTile(testList)
                 #possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
 #                 for i in range (0,len(possibleDesTile)):
 #                     if board.tiles[mincoord[0]][mincoord[1]] == possibleDesTile[i]:
                 #self.desTile = board.tiles[mincoord[0][0]][mincoord[0][1]]
-                
-                
+            elif self.ID == 3:
+                possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
+                if (len(possibleDesTile)) > 1:
+                    randomDesNum = randint(0,len(possibleDesTile)-1)
+                    self.desTile = possibleDesTile[randomDesNum]
+                elif(len(possibleDesTile) == 1):
+                    randomDesNum = 0
+                    self.desTile = possibleDesTile[randomDesNum]
+                else:
+                    self.desTile = None
+                     
+                self.desTile = possibleDesTile[randomDesNum]
+            
+            else:
+                self.desTile = self.srcTile    
+            
             possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
             
             action = False
@@ -149,7 +153,7 @@ class DummyAI:
 # # #                 if self.srcTile.unit.weapon.name == 'Shotgun':
 #                     if self.ID == 1 or self.ID == 2:
 #                         self.desTile = helper.tryToGetToTile(possibleDesTile,self.desTile)
-    
+            
         else:
             self.desTile = None
 #                 if check == 1:
