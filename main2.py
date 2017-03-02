@@ -63,7 +63,7 @@ def main():
         passable = (cols[2] == "True")
         tiles[(int(cols[0]),int(cols[1]))] = board.Tile((int(cols[0]), int(cols[1])), passable, int(cols[3]), int(cols[4]), int(cols[5]), int(cols[6]))
 
-    print(tiles)
+    #print(tiles)
     board1 = board.Board(15,20, tiles)
 
     wep_assault = soldier.Weapon("Assault Rifle", 3, 5, 3, [25,20,18,16,14,12,10,8,6,4,2,0,0,0,0,0,0,0,0,0,-5,-10,-15,-20,-25,-30], 0, 2)
@@ -146,7 +146,19 @@ def main():
         currentTile = None
         displayHover = 0
         currentSide = 0
-
+        
+        
+        
+    testList = dummyAI.dangerBoard(board1, soldiers, currentSide, soldiers[currentSide][0])
+    for i in range(0,board1.width):
+        for j in range(0,board1.height):
+            print("%8.2f " % testList[i][j], end = "")
+        
+  
+    print("NS")  
+    print(testList[19][13])
+    print(testList[17][12])
+    
     try:
         while 1:
             if mode == 1:

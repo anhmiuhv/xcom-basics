@@ -1,6 +1,7 @@
 import board
 import Controller
 from random import randint
+import helper
 
 class DummyAI:
     def __init__(self,name):
@@ -98,26 +99,35 @@ class DummyAI:
             
         check = 1
         
-        if self.srcTile != None:
-            
+        if self.srcTile != None:    
+                
             if self.ID ==1 or self.ID ==2:
                 testList = []
                 if (self.srcTile.unit.weapon.name == 'Assault Rifle') or (self.srcTile.unit.weapon.name == 'Sniper Rifle'):
+                    coords = []
                     testList = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
-                    mincoord = helper.findMinTile(testList)
+                    possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
+                    for tile in possibleDesTile:
+                        coords.append(tile.coords)
+                    mincoord = helper.findMinTile(testList,coords)
                     self.desTile = board.tiles[mincoord[0][0]][mincoord[0][1]]
                 else:
+                    coords = []
+                    testList = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
+                    possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
+                    for tile in possibleDesTile:
+                        coords.append(tile.coords)
                     testList1 = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
                     testList2 = self.shootMap(board, soldiers, side, self.srcTile.unit)
-                    mincoord1 = helper.findMinTile(testList1)
-                    mincoord2 = helper.findMinTile(testList2)
+                    mincoord1 = helper.findMinTile(testList1,coords)
+                    mincoord2 = helper.findMinTile(testList2,coords)
 #                     if mincoord1[1] < mincoord2[1]:
 #                         mincoord = mincoord1
 #                         print("safe over aggressive")
 #                     else: 
 #                         mincoord = mincoord2
 #                         print("aggressive over safe")
-                    mincoord = mincoord2
+                    mincoord = mincoord1
                     self.desTile = board.tiles[mincoord[0][0]][mincoord[0][1]]
                 #mincoord = helper.findMinTile(testList)
                 #possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
@@ -134,11 +144,11 @@ class DummyAI:
                 if (tile.coords == self.desTile.coords):
                         action = True
             
-            if action == False:
-                if side == 1:
-# #                 if self.srcTile.unit.weapon.name == 'Shotgun':
-                    if self.ID == 1 or self.ID == 2:
-                        self.desTile = helper.tryToGetToTile(possibleDesTile,self.desTile)
+#             if action == False:
+#                 if side == 1:
+# # #                 if self.srcTile.unit.weapon.name == 'Shotgun':
+#                     if self.ID == 1 or self.ID == 2:
+#                         self.desTile = helper.tryToGetToTile(possibleDesTile,self.desTile)
     
         else:
             self.desTile = None

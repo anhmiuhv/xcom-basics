@@ -41,3 +41,27 @@ def checkWinCondition(board):
     else:
         whowin = 4
     return whowin
+
+
+def findMinTile(utiList,coords):
+    min = utiList[0][0]
+    minTile = (0,0)
+    for i in range(0,len(coords)):
+        
+        if utiList[coords[i][0]][coords[i][1]] <= min:
+            min = utiList[coords[i][0]][coords[i][1]]
+            minTile = (coords[i][0],coords[i][1])
+    
+    return (minTile, min)
+
+def tryToGetToTile(listTile, tile):
+    bestTile = listTile[0]
+    bestScore = tile.coords[0]-listTile[0].coords[0] + tile.coords[1]-listTile[0].coords[1]
+    for dummytile in listTile:
+        newscore = tile.coords[0]-dummytile.coords[0] + tile.coords[1]-dummytile.coords[1]
+        if (newscore < bestScore):
+            bestTile = dummytile
+            
+    print(tile.coords)
+    print(bestTile.coords)
+    return bestTile
