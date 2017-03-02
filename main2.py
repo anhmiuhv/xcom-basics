@@ -21,7 +21,7 @@ import argparse
 #parsing option from users
 parser = argparse.ArgumentParser(description=' in aliens we trust')
 parser.add_argument('mode',choices=['pvp','pve', 'eve'], help='The type of mode to run:')
-parser.add_argument('levelOfAI',choices=['noob','god level'], help='The type of mode to run:')
+parser.add_argument('levelOfAI',choices=['noob','godlevel'], help='The type of mode to run:')
 args = parser.parse_args()
 mode = 0
 
