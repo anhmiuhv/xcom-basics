@@ -3,6 +3,7 @@ import Controller
 from random import randint
 import helper
 import math
+from random import random
 class DummyAI:
     def __init__(self,name):
         self.name = name
@@ -212,11 +213,26 @@ class DummyAI:
             elif self.srcTile.hasCover() < 10:
                 self.ID = 1
             else:
-                self.ID = randint(1,3)
+                testList1 = self.dangerBoard(board, soldiers, side, self.srcTile.unit)
+                testList2 = self.shootMap(board, soldiers, side, self.srcTile.unit)
+                xc = self.srcTile.coords[0]
+                yc = self.srcTile.coords[1]
+                tscore = (testList1[xc][yc]+(testList2[xc][yc]*20)) / 200
+                prob = 1/(1+math.exp(tscore * -1))
+                getrand = random()
+                print("prob")
+                print(prob)
+                print(tscore)
+                print(testList1[xc][yc])
+                print(testList2[xc][yc])
+                if getrand < prob:
+                    self.ID = 1
+                else:
+                    self.ID = 3
             
-            while ((self.ID == 2) and (self.srcTile.unit != None) and (self.srcTile.unit.actionPoints == 1)):
-    #         while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
-                self.ID = 3
+#             while ((self.ID == 2) and (self.srcTile.unit != None) and (self.srcTile.unit.actionPoints == 1)):
+#     #         while not((self.srcTile != None) and (self.ID in self.controller.possibleAction(self.srcTile))):
+#                 self.ID = 3
             if self.ID ==1 or self.ID ==2:
                 testList = []
                 if (self.srcTile.unit.weapon.name == 'Assault Rifle') or (self.srcTile.unit.weapon.name == 'Sniper Rifle'):
@@ -251,9 +267,9 @@ class DummyAI:
 #                     if board.tiles[mincoord[0]][mincoord[1]] == possibleDesTile[i]:
                 #self.desTile = board.tiles[mincoord[0][0]][mincoord[0][1]]
             elif self.ID == 3:
-                print("Start Test")
+                #print("Start Test")
                 self.desTile = self.bestShootEnemy(board, self.srcTile, otherside)
-                print("End Test")
+                #print("End Test")
 #                 possibleDesTile = self.controller.possibleTiles(board,self.srcTile,self.ID)
 #                 if (len(possibleDesTile)) > 1:
 #                     randomDesNum = randint(0,len(possibleDesTile)-1)
@@ -344,10 +360,10 @@ class DummyAI:
                 
     def bestShootEnemy(self, board, tile, enemytiles):
         
-        maxScore = (self.controller.damageScore(board, tile, tile.unit, enemytiles[0]))/enemytiles[0].unit.health
+        maxScore = (self.controller.damageScore(board, tile, tile.unit, enemytiles[0]))/(enemytiles[0].unit.health ** 0.5)
         bestTile = enemytiles[0]
         for i in range(0,len(enemytiles)):
-            newScore = (self.controller.damageScore(board, tile, tile.unit, enemytiles[i]))/enemytiles[i].unit.health
+            newScore = (self.controller.damageScore(board, tile, tile.unit, enemytiles[i]))/(enemytiles[i].unit.health ** 0.5)
             if newScore > maxScore:
                 bestTile = enemytiles[i]
         

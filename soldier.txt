@@ -1,18 +1,18 @@
 if (i==0)&(j==4):
-    unit1 = soldier.Soldier("Julian", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
     testtile = board1.tiles[i][j]
 
 elif (i==0)&(j==6):
-    unit1 = soldier.Soldier("Julian2", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian2", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
 
 elif (i==0)&(j==8):
-    unit1 = soldier.Soldier("Julian3", copy.copy(wep_shotgun), (i,j))
+    unit1 = soldier.Soldier("Julian3", copy.copy(wep_assault), (i,j))
     unit1.set_image("pa")
     board1.tiles[i][j].unit = unit1
     soldiers[0].append(unit1)
