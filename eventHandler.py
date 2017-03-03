@@ -9,13 +9,13 @@ def hoverDisplay(displayHover, currentTile, currentSide, myfont, renderer, count
             displayHover = 0
 
     if displayHover == 1:
-        print ("mouse is over 'unit'")
+        ##print ("mouse is over 'unit'")
         renderer.renderHover(currentTile,myfont)
         displayHover = 2
-        print(currentSide)
+        ##print(currentSide)
 
     elif(displayHover == 0):
-        print("mouse is not on unit anymore")
+        ##print("mouse is not on unit anymore")
         if count == 0:
             renderer.render(board1)
             displayHover = 3
@@ -36,7 +36,7 @@ def mouseButtonHandler(count, controller, board1, soldiers, currentSide, rendere
             renderer.renderPossibleTiles([srcTile])
         else:
             count = 0
-            print("You do not click on an unit nooob!")
+            ##print("You do not click on an unit nooob!")
 
     elif(count == 2):
         print("destination receive")

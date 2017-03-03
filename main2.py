@@ -222,8 +222,8 @@ def main():
                         count, srcTile, desTile = eventHandler.mouseButtonHandler(count, controller, board1, soldiers, currentSide, renderer, srcTile, desTile)
                             #board2 = controller.makemove(board1, coord1,coord2)
 
-                    else:
-                        print("you pressed too fast")
+#                     else:
+#                         print("you pressed too fast")
                         #coord = pygame.mouse.get_pos()
                 if event.type == pygame.KEYDOWN:
                     if (count == 1)or(count == 2):

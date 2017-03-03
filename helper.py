@@ -1,5 +1,6 @@
 import pygame
 import random, os.path
+import math
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 
 def load_image(file):
@@ -56,7 +57,7 @@ def findMinTile(utiList,coords):
 
 def tryToGetToTile(listTile, tile):
     bestTile = listTile[0]
-    bestScore = tile.coords[0]-listTile[0].coords[0] + tile.coords[1]-listTile[0].coords[1]
+    bestScore = math.fabs(tile.coords[0]-listTile[0].coords[0]) + math.fabs(tile.coords[1]-listTile[0].coords[1])
     for dummytile in listTile:
         newscore = tile.coords[0]-dummytile.coords[0] + tile.coords[1]-dummytile.coords[1]
         if (newscore < bestScore):
