@@ -214,3 +214,4 @@ class Controller:
         damage += soldier.weapon.critDamage * critChance / 100
         damage -= damage * dodgeChance / 100
         return damage
+    

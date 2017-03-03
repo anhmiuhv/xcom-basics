@@ -180,6 +180,9 @@ def main():
                     print("XCOM wins: " + str(xcomwin))
                     print("ALIENS wins: " + str(alienwin))
                     break
+            
+            if xcomwin + alienwin == 30:
+                break
             if mode == 1 or mode ==2:
                 coord2 = pygame.mouse.get_pos()
                 currentTile = controller.getTile(board1, coord2)
@@ -188,7 +191,7 @@ def main():
             if mode == 3:
                 if level == 1:
                     if currentSide == 0:
-                        dummyAI.improvedRandomExecution(board1,soldiers,currentSide)
+                        dummyAI.improvedRandomExecution2(board1,soldiers,currentSide)
                         srcTile = dummyAI.srcTile
                         desTile = dummyAI.desTile
                         ID = dummyAI.ID
