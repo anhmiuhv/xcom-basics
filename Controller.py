@@ -145,12 +145,12 @@ class Controller:
                     desTile.unit.health -= damage
                     if (desTile.unit.health <= 0):
                         desTile.unit = None
-                    srcTile.unit.weapon.ammo -= 1
                     msg = msg + str(hitChance) + "% Hit " + str(critChance) + "% Crit " + str(dodgeChance) + "% Dodge, " + str(damage) + " damage dealt."
                     if desTile.unit == None:
                         msg = msg + "  ... and your target die"
                 else:
                     msg = "Missed: " + str(hitChance) + "% chance."
+                srcTile.unit.weapon.ammo -= 1
             if ID == 4:
                 srcTile.unit.actionPoints -= 1
                 srcTile.unit.weapon.ammo = srcTile.unit.weapon.magSize
