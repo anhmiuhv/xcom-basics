@@ -14,8 +14,9 @@ Contains 3 different AI from easy to hard.
 @anhmiuhv
 
 Trailer
-<iframe width="560" height="315" src="https://www.youtube.com/embed/i3BTdJRmagk" frameborder="0" allowfullscreen></iframe>
 
+https://youtu.be/i3BTdJRmagk
 
 Intro video and Gameplay
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Gi8l9GZlgEM" frameborder="0" allowfullscreen></iframe>
+
+https://www.youtube.com/watch?v=Gi8l9GZlgEM
