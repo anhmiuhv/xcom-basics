@@ -8,7 +8,7 @@ Created for Intro to AI WPI CS4341
 Contains 3 different AI from easy to hard.
 
 ## Contribution
-@zombifiers
+@zombifier
 @nguyendupa
 @shuang2
 @anhmiuhv
